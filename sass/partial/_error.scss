@@ -1,0 +1,12 @@
+.speaker-error {
+  display:none;
+  
+  body.platform-ios & {
+  display:block;
+  @include position(absolute, 50% null null 50%);
+  @include transform(translateX(-50%) translateY(-50%));
+  width: 100%;
+  text-align: center;
+  color: #606060;
+  }
+}

@@ -1,0 +1,110 @@
+* {
+  outline: none;
+  -webkit-tap-highlight-color: transparent; }
+
+svg {
+  width: 100%;
+  height: auto; }
+
+img {
+  max-width: 100%; }
+
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif; }
+
+button {
+  color: inherit;
+  font-size: inherit;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  border: 0;
+  padding: 0;
+  background-color: transparent; }
+
+.hidden, #templates, .app-screen:not(.active) {
+  display: none !important; }
+
+.invisible {
+  visibility: hidden !important; }
+
+.no-overflow, #wrapper, .app-screen {
+  overflow: hidden; }
+
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+#wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%; }
+
+.speaker-control {
+  display: none; }
+  body.platform-android .speaker-control {
+    display: block; }
+
+.speaker-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  width: 128px;
+  height: 128px;
+  border: 5px solid currentColor;
+  border-radius: 50%; }
+  .speaker-button.active {
+    background-color: #E1514C;
+    color: white;
+    border-color: #E1514C; }
+  .speaker-button:not(.active) {
+    color: white; }
+  .speaker-button.active {
+    background-color: #E1514C; }
+  .speaker-button::after, .speaker-button.active::after {
+    color: white; }
+  .speaker-button .material-icons {
+    font-size: 64px; }
+
+.explanation {
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  width: 100%;
+  display: block;
+  color: #FFFFFF;
+  opacity: 0.3;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  text-align: center; }
+
+.speaker-error {
+  display: none; }
+  body.platform-ios .speaker-error {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    text-align: center;
+    color: #606060; }
+
+.wrapper {
+  background-color: #2D324B; }

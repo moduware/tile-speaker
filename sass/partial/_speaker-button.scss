@@ -1,0 +1,27 @@
+.speaker-button {
+  @include position(absolute, 50% null null 50%);
+  @include transform(translateX(-50%) translateY(-50%));
+  width: 128px; height: 128px;
+  border: 5px solid currentColor;
+  border-radius: 50%;
+
+  &.active {
+    background-color:#E1514C ;
+    color: white;
+    border-color: #E1514C; 
+  }
+  &:not(.active) {
+    color: white;
+  }
+  &.active{
+    background-color:#E1514C;;
+  }
+  
+  &::after, &.active::after {
+    color:white;;
+  }
+
+  .material-icons {
+  font-size: 64px;
+  }
+}
