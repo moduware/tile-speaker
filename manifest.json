@@ -3,11 +3,12 @@
   "name": "Speaker",
   "description": "Nexpaq Speaker module interface",
 
-  "version": "1.0.1",
+  "version": "1.0.2",
   "changes": "Decreased size of package",
   "app_version": "1.0.3",
   "modules": [
-    "nexpaq.module.speaker"
+    "nexpaq.module.speaker",
+    "moduware.module.speaker"
   ],
   
   "title": "Speaker",
