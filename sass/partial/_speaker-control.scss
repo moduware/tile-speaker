@@ -1,7 +1,3 @@
 .speaker-control {
-  display:none;
-
-  body.platform-android & {
-    display: block;
-  }
+  display: block;
 }

@@ -43,9 +43,7 @@ button {
   height: 100%; }
 
 .speaker-control {
-  display: none; }
-  body.platform-android .speaker-control {
-    display: block; }
+  display: block; }
 
 .speaker-button {
   position: absolute;
@@ -89,22 +87,6 @@ button {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 14px;
   text-align: center; }
-
-.speaker-error {
-  display: none; }
-  body.platform-ios .speaker-error {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -ms-transform: translateX(-50%) translateY(-50%);
-    -o-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    width: 100%;
-    text-align: center;
-    color: #606060; }
 
 .wrapper {
   background-color: #2D324B; }
