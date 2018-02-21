@@ -37,5 +37,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	Nexpaq.Header.hideShadow();
 
 	document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
-
+	if(Nexpaq.Arguments[2] == 'nexpaq.module.speaker') {
+		document.getElementById('default-state-control').style.display = 'none';
+	}
 });
