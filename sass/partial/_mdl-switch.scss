@@ -1,0 +1,19 @@
+.mdl-switch.mdl-switch {
+    width: 40px;
+}
+
+.mdl-switch.mdl-switch .mdl-switch__track {
+    background: rgba(96, 96, 96, 0.5);
+}
+
+.mdl-switch.mdl-switch.is-checked .mdl-switch__track {
+    background: rgba(225, 81, 76, 0.26);
+}
+
+.mdl-switch.mdl-switch .mdl-switch__thumb {
+    background: rgb(96, 96, 96);
+}
+
+.mdl-switch.mdl-switch.is-checked .mdl-switch__thumb {
+    background: rgb(225, 81, 76);
+}
