@@ -16,6 +16,7 @@
     <!-- vendor -->
 
     <!-- nexpaq libs -->
+    <script type="text/javascript" src="vendor/material.min.js"></script>
     <script type="text/javascript" src="node_modules/webview-tile-header/WebViewTileHeader.js"></script>
    
 
@@ -31,12 +32,16 @@
   <body>
 
     <div id="wrapper" class="wrapper">
-      <div id= "speaker-control" class="speaker-control" >
-        <button class= "speaker-button" id= "speaker-button"><i class="material-icons">power_settings_new</i></button>
-        <span class= "explanation" id= "explanation"> Tap to turn on or off the speaker </span>
+      <div id="speaker-control" class="speaker-control" >
+        <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button>
+        <span class= "explanation" id="explanation"> Tap to turn on or off the speaker </span>
       </div>
-      <div id= "speaker-error" class="speaker-error">
-        <span class= "error" > This module is unsupported on your platform. </span>
+      <div id="default-state-control" class="default-state-control">
+        <span>Turn on when plugged in</span>
+        <label id="default-state-control-label" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="default-state-switch">
+          <input type="checkbox" id="default-state-switch" class="mdl-switch__input"><!--  checked -->
+          <span class="mdl-switch__label"></span>
+        </label>
       </div>
     </div>
   </body>

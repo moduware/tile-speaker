@@ -35,9 +35,11 @@ document.addEventListener('NexpaqAPIReady', function () {
       }
       if(Nexpaq.Arguments[2] == 'moduware.module.speaker') {
 				if(event.variables.defaultState == 'connected') {
-					document.getElementById('default-state-switch').checked = true;
+          document.getElementById('default-state-switch').checked = true;
+          document.getElementById('default-state-control-label').classList.add('is-checked');
 				} else if(event.variables.defaultState == 'disconnected') {
-					document.getElementById('default-state-switch').checked = false;
+          document.getElementById('default-state-switch').checked = false;
+          document.getElementById('default-state-control-label').classList.remove('is-checked');
 				}
 			}
     }
