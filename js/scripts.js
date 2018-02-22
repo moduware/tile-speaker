@@ -46,6 +46,10 @@ document.addEventListener('NexpaqAPIReady', function () {
 
   });
 
+  if (typeof(Nexpaq.Arguments) != 'undefined' && Nexpaq.Arguments[2] == 'nexpaq.module.speaker') {
+    document.getElementById('default-state-control').style.display = 'none';
+  }
+
   requestStatus();
 });
 
@@ -57,7 +61,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);
-  if (typeof(Nexpaq.Arguments) != 'undefined' && Nexpaq.Arguments[2] == 'nexpaq.module.speaker') {
-    document.getElementById('default-state-control').style.display = 'none';
-  }
 });
