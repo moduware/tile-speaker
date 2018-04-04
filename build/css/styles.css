@@ -81,9 +81,9 @@ button {
   -o-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   width: 100%;
+  max-width: 250px;
   display: block;
   color: #FFFFFF;
-  opacity: 0.3;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 14px;
   text-align: center; }

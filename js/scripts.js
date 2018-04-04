@@ -1,9 +1,9 @@
 // hack for development, as header lib still uses Nexpaq object by default
 // And there are no app to create Moduware alias
-if(typeof(Moduware) == 'undefined') {
-  Moduware = Nexpaq;
-  //Moduware.Arguments = {}; Moduware.Arguments.type = 'moduware.module.speaker';
-}
+// if(typeof(Moduware) == 'undefined') {
+//   Moduware = Nexpaq;
+//   Moduware.Arguments = {}; Moduware.Arguments.type = 'moduware.module.speaker';
+// }
 
 let showInstructions = (localStorage.speaker_v1_setting_show_instructions || 'true') == 'true';
 function setInstructions(value) {
@@ -89,15 +89,16 @@ document.addEventListener('NexpaqAPIReady', function () {
     document.getElementById('default-state-control').style.display = 'none';
   }
 
+  renderInstructions();
   requestStatus();
 });
 
 /* =========== ON PAGE LOAD HANDLER */
 document.addEventListener('DOMContentLoaded', function (event) {
-  Moduware.Header.create('Speaker');
-  Moduware.Header.customize({ color: 'white', iconColor: 'white', backgroundColor: '#E1514C' });
-  Moduware.Header.hideShadow();
-  Moduware.Header.addButton({image: 'img/icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
+  Nexpaq.Header.create('Speaker');
+  Nexpaq.Header.customize({ color: 'white', iconColor: 'white', backgroundColor: '#E1514C' });
+  Nexpaq.Header.hideShadow();
+  Nexpaq.Header.addButton({image: 'img/icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);

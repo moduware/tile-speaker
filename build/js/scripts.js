@@ -1,39 +1,78 @@
+// hack for development, as header lib still uses Nexpaq object by default
+// And there are no app to create Moduware alias
+// if(typeof(Moduware) == 'undefined') {
+//   Moduware = Nexpaq;
+//   Moduware.Arguments = {}; Moduware.Arguments.type = 'moduware.module.speaker';
+// }
+
+let showInstructions = (localStorage.speaker_v1_setting_show_instructions || 'true') == 'true';
+function setInstructions(value) {
+  showInstructions = value;
+  localStorage.speaker_v1_setting_show_instructions = value ? 'true' : 'false';
+  renderInstructions();
+}
+
+function renderInstructions() {
+  if(!showInstructions) {
+    document.getElementById('explanationPowerOn').classList.add('hidden');
+    document.getElementById('explanationConnect').classList.add('hidden');
+    document.getElementById('headerInfoButton').style.opacity = 0.7;
+  } else {
+    document.getElementById('headerInfoButton').style.opacity = 1;
+    if(document.getElementById('speaker-button').classList.contains('active')) {
+      document.getElementById('explanationPowerOn').classList.add('hidden');
+    } else {
+      document.getElementById('explanationPowerOn').classList.remove('hidden');
+    }
+
+    if(Moduware.Arguments.type == 'moduware.module.speaker') {
+      if(document.getElementById('speaker-button').classList.contains('active')) {
+        document.getElementById('explanationConnect').classList.remove('hidden');
+      } else {
+        document.getElementById('explanationConnect').classList.add('hidden');
+      }
+    }
+  }
+}
+
 function speakerButtonClickHandler(e) {
-  this.classList.toggle('active');
+  document.getElementById('speaker-button').classList.toggle('active')
+  renderInstructions();
 
   if (this.classList.contains('active')) {
-    Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'Connect', []);
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
   } else {
-    Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'Disconnect', []);
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
   }
 }
 
 function defaultStateSwitchClickHandler(e) {
   if(this.checked) {
-    Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'SetDefaultStateAsOn', []);
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
   } else {
-    Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'SetDefaultStateAsOff', []);
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
   }
 }
 
 function requestStatus() {
-  Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'StatusCheck', []);
+  Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'StatusCheck', []);
 }
 
 document.addEventListener('NexpaqAPIReady', function () {
-  Nexpaq.API.Module.addEventListener('DataReceived', function (event) {
+  Moduware.v0.API.Module.addEventListener('DataReceived', function (event) {
     // we don't care about data not related to our module
-    if (event.module_uuid != Nexpaq.Arguments[0]) return;
-    if (event.data_source == 'StateChangeResponse' && event.variables.result == 'success') {
+    if (event.moduleUuid != Moduware.Arguments.uuid) return;
+    if (event.dataSource == 'StateChangeResponse' && event.variables.result == 'success') {
       requestStatus();
     }
-    if (event.data_source == 'StatusRequestResponse') {
+    if (event.dataSource == 'StatusRequestResponse') {
       if (event.variables.status == 'connected') {
         document.getElementById('speaker-button').classList.add('active');
       } else if(event.variables.status == 'disconnected') {
         document.getElementById('speaker-button').classList.remove('active');
       }
-      if(Nexpaq.Arguments[2] == 'moduware.module.speaker') {
+      renderInstructions();
+      if(Moduware.Arguments.type == 'moduware.module.speaker') {
 				if(event.variables.defaultState == 'connected') {
           document.getElementById('default-state-switch').checked = true;
           document.getElementById('default-state-control-label').classList.add('is-checked');
@@ -46,18 +85,23 @@ document.addEventListener('NexpaqAPIReady', function () {
 
   });
 
+  if (typeof(Moduware.Arguments) != 'undefined' && Moduware.Arguments.type == 'nexpaq.module.speaker') {
+    document.getElementById('default-state-control').style.display = 'none';
+  }
+
+  renderInstructions();
   requestStatus();
 });
 
 /* =========== ON PAGE LOAD HANDLER */
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener('DOMContentLoaded', function (event) {
   Nexpaq.Header.create('Speaker');
-  Nexpaq.Header.customize({ color: "white", iconColor: "white", backgroundColor: "#E1514C" });
+  Nexpaq.Header.customize({ color: 'white', iconColor: 'white', backgroundColor: '#E1514C' });
   Nexpaq.Header.hideShadow();
+  Nexpaq.Header.addButton({image: 'img/icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);
-  if (typeof(Nexpaq.Arguments) != 'undefined' && Nexpaq.Arguments[2] == 'nexpaq.module.speaker') {
-    document.getElementById('default-state-control').style.display = 'none';
-  }
+
+  renderInstructions();
 });
