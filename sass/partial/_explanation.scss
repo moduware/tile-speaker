@@ -2,9 +2,9 @@
   @include position(absolute, calc(50% - 115px) null null 50%);
   @include transform(translateX(-50%) translateY(-50%));
   width: 100%;
+  max-width: 250px;
   display: block;
   color: #FFFFFF;
-  opacity: 0.3;
   font-family: $main-font;
   font-size: 14px;
   text-align: center;

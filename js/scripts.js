@@ -1,10 +1,10 @@
 function speakerButtonClickHandler(e) {
-  this.classList.toggle('active');
-
   if (this.classList.contains('active')) {
-    Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'Connect', []);
-  } else {
+    showStateOff();
     Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'Disconnect', []);
+  } else {
+    showStateOn();
+    Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'Connect', []);
   }
 }
 
@@ -20,6 +20,18 @@ function requestStatus() {
   Nexpaq.API.Module.SendCommand(Nexpaq.Arguments[0], 'StatusCheck', []);
 }
 
+function showStateOn() {
+  document.getElementById('speaker-button').classList.add('active');
+  document.getElementById('explanationPowerOn').classList.add('hidden');
+  document.getElementById('explanationConnect').classList.remove('hidden');
+}
+
+function showStateOff() {
+  document.getElementById('speaker-button').classList.remove('active');
+  document.getElementById('explanationPowerOn').classList.remove('hidden');
+  document.getElementById('explanationConnect').classList.add('hidden');
+}
+
 document.addEventListener('NexpaqAPIReady', function () {
   Nexpaq.API.Module.addEventListener('DataReceived', function (event) {
     // we don't care about data not related to our module
@@ -29,9 +41,9 @@ document.addEventListener('NexpaqAPIReady', function () {
     }
     if (event.data_source == 'StatusRequestResponse') {
       if (event.variables.status == 'connected') {
-        document.getElementById('speaker-button').classList.add('active');
+        showStateOn();
       } else if(event.variables.status == 'disconnected') {
-        document.getElementById('speaker-button').classList.remove('active');
+        showStateOff();
       }
       if(Nexpaq.Arguments[2] == 'moduware.module.speaker') {
 				if(event.variables.defaultState == 'connected') {
@@ -54,9 +66,9 @@ document.addEventListener('NexpaqAPIReady', function () {
 });
 
 /* =========== ON PAGE LOAD HANDLER */
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener('DOMContentLoaded', function (event) {
   Nexpaq.Header.create('Speaker');
-  Nexpaq.Header.customize({ color: "white", iconColor: "white", backgroundColor: "#E1514C" });
+  Nexpaq.Header.customize({ color: 'white', iconColor: 'white', backgroundColor: '#E1514C' });
   Nexpaq.Header.hideShadow();
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
