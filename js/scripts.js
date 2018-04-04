@@ -23,13 +23,17 @@ function requestStatus() {
 function showStateOn() {
   document.getElementById('speaker-button').classList.add('active');
   document.getElementById('explanationPowerOn').classList.add('hidden');
-  document.getElementById('explanationConnect').classList.remove('hidden');
+  if(Moduware.Arguments.type == 'moduware.module.speaker') {
+    document.getElementById('explanationConnect').classList.remove('hidden');
+  }
 }
 
 function showStateOff() {
   document.getElementById('speaker-button').classList.remove('active');
   document.getElementById('explanationPowerOn').classList.remove('hidden');
-  document.getElementById('explanationConnect').classList.add('hidden');
+  if(Moduware.Arguments.type == 'moduware.module.speaker') {
+    document.getElementById('explanationConnect').classList.add('hidden');
+  }
 }
 
 document.addEventListener('NexpaqAPIReady', function () {
