@@ -32,7 +32,7 @@
   <body>
 
     <div id="wrapper" class="wrapper">
-      <div class="page page--bug-notice">
+      <div class="page page--bug-notice hidden" id="pageBugNotice">
         <div class="notice">
           <h1 class="notice__title">Important</h1>
           <p class="notice__text">
@@ -44,9 +44,9 @@
             Moduware Speaker and <strong>switch off "call audio"</strong>
           </p>
         </div>
-        <button class="button-connect action-button action-button--red">Connect</button>
+        <button class="button-connect action-button action-button--red" id="buttonConnectSpeaker">Connect</button>
       </div>
-      <div class="page page--main hidden">
+      <div class="page page--main" id="pageMain">
         <div id="speaker-control" class="speaker-control" >
           <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button>
           <span class="explanation explanation--power-on hidden" id="explanationPowerOn">

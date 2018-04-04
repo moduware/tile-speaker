@@ -6,6 +6,9 @@
 // }
 
 let showInstructions = (localStorage.speaker_v1_setting_show_instructions || 'true') == 'true';
+let speakerIsConnected = false;
+const bluetoothMediaModuleName = 'Moduware Speaker';
+
 function setInstructions(value) {
   showInstructions = value;
   localStorage.speaker_v1_setting_show_instructions = value ? 'true' : 'false';
@@ -35,6 +38,16 @@ function renderInstructions() {
   }
 }
 
+function showBugNotice() {
+  document.getElementById('pageMain').classList.add('hidden');
+  document.getElementById('pageBugNotice').classList.remove('hidden');
+}
+
+function hideBugNotice() {
+  document.getElementById('pageMain').classList.remove('hidden');
+  document.getElementById('pageBugNotice').classList.add('hidden');
+}
+
 function speakerButtonClickHandler(e) {
   document.getElementById('speaker-button').classList.toggle('active')
   renderInstructions();
@@ -52,6 +65,11 @@ function defaultStateSwitchClickHandler(e) {
   } else {
     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
   }
+}
+
+function connectSpeakerButtonClickHandler(e) {
+  hideBugNotice();
+  Moduware.v0.API.BluetoothMediaModuleConnect(bluetoothMediaModuleName);
 }
 
 function requestStatus() {
@@ -91,6 +109,17 @@ document.addEventListener('NexpaqAPIReady', function () {
 
   renderInstructions();
   requestStatus();
+
+  Moduware.v0.API.BluetoothMediaModuleIsPaired(bluetoothMediaModuleName).then(isPaired => {
+    if(isPaired) {
+      Moduware.v0.API.BluetoothModuleIsConnected(bluetoothMediaModuleName).then(isConnected => {
+        if(isConnected) {
+          speakerIsConnected = true;
+          document.getElementById('buttonConnectSpeaker').textContent = 'Okay';
+        }
+      });
+    }
+  });
 });
 
 /* =========== ON PAGE LOAD HANDLER */
@@ -102,6 +131,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);
+  document.getElementById('buttonConnectSpeaker').addEventListener('click', connectSpeakerButtonClickHandler);
+
+  if(showInstructions && document.body.classList.contains('platform-android')) {
+    showBugNotice();
+  }
 
   renderInstructions();
 });

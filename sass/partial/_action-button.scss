@@ -9,6 +9,7 @@
   background-color: rgba(0,0,0,0.4);
   text-decoration: none;
   text-align: center;
+  flex-shrink: 0;
 
   body.platform-ios & {
     background-color: rgba(0,0,0,0.2);

@@ -1,6 +1,7 @@
 .page {
     box-sizing: border-box;
     height: 100vh;
+    overflow-y: scroll;
     padding: 15px;
 
     body.platform-ios & {
