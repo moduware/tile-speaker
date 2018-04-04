@@ -122,5 +122,68 @@ button {
 .mdl-switch.mdl-switch.is-checked .mdl-switch__thumb {
   background: #e1514c; }
 
+.action-button {
+  display: block;
+  width: 100%;
+  line-height: 56px;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  text-align: center; }
+  body.platform-ios .action-button {
+    background-color: rgba(0, 0, 0, 0.2); }
+
+.action-button.action-button--primary.action-button--primary {
+  color: #46320A;
+  background-color: white; }
+
+.action-button.action-button--red.action-button--red {
+  color: white;
+  background-color: #E1514C; }
+
+.action-button.action-button--link.action-button--link {
+  color: white;
+  background-color: transparent;
+  font-size: 16px; }
+
+.notice {
+  color: white; }
+
+.notice__title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 5px;
+  text-transform: uppercase; }
+
+.notice__text {
+  line-height: 21px; }
+
+.notice__picture {
+  display: block;
+  margin: 30px auto; }
+
+.page {
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 15px; }
+  body.platform-ios .page {
+    padding-top: 45px; }
+  body.platform-android .page {
+    padding-top: 55px; }
+
 .wrapper {
   background-color: #2E334B; }
+
+.page--bug-notice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+.page--bug-notice .notice {
+  margin: auto 0; }
+
+.page--bug-notice .button-connect {
+  align-self: flex-end; }

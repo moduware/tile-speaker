@@ -1,22 +1,26 @@
 @import "bourbon";
-@import "_variables.scss";
-@import "_colors.scss";
-@import "_global.scss";
+@import "variables";
+@import "colors";
+@import "global";
 
 // MIXINS
 
 
 // PARTIALS
-@import "partial/_speaker-control.scss";
-@import "partial/_speaker-button.scss";
-@import "partial/_explanation.scss";
-@import "partial/_default-state-control.scss";
-@import "partial/_mdl-switch.scss";
+@import "partial/speaker-control";
+@import "partial/speaker-button";
+@import "partial/explanation";
+@import "partial/default-state-control";
+@import "partial/mdl-switch";
+@import "partial/action-button";
+@import "partial/notice";
+@import "partial/page";
 
 // TOOLS
 
 
 // SCREENS
-@import "screen/_main.scss";
+@import "screen/main";
+@import "screen/bug-notice";
 
 

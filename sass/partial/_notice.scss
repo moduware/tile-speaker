@@ -1,0 +1,19 @@
+.notice {
+    color: white;
+}
+
+.notice__title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 5px;
+    text-transform: uppercase;
+}
+
+.notice__text {
+    line-height: 21px;
+}
+
+.notice__picture {
+    display: block;
+    margin: 30px auto;
+}

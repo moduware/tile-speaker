@@ -1,0 +1,13 @@
+.page {
+    box-sizing: border-box;
+    height: 100vh;
+    padding: 15px;
+
+    body.platform-ios & {
+        padding-top: 45px;
+    }
+
+    body.platform-android & {
+        padding-top: 55px;
+    }
+}
