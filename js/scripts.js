@@ -112,7 +112,7 @@ document.addEventListener('NexpaqAPIReady', function () {
 
   Moduware.v0.API.BluetoothMediaModuleIsPaired(bluetoothMediaModuleName).then(isPaired => {
     if(isPaired) {
-      Moduware.v0.API.BluetoothModuleIsConnected(bluetoothMediaModuleName).then(isConnected => {
+      Moduware.v0.API.BluetoothMediaModuleIsConnected(bluetoothMediaModuleName).then(isConnected => {
         if(isConnected) {
           speakerIsConnected = true;
           document.getElementById('buttonConnectSpeaker').textContent = 'Okay';
