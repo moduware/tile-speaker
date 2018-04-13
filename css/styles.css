@@ -12,8 +12,12 @@ svg {
 img {
   max-width: 100%; }
 
+html {
+  background-color: #e1514c; }
+
 body {
-  font-family: Roboto, Helvetica, Arial, sans-serif; }
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  min-height: initial; }
 
 button {
   color: inherit;
@@ -39,7 +43,7 @@ button {
   user-select: none; }
 
 #wrapper {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   width: 100%;
@@ -168,7 +172,7 @@ button {
 
 .page {
   box-sizing: border-box;
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   padding: 15px; }
   body.platform-ios .page {

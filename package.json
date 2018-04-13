@@ -27,6 +27,6 @@
     "rimraf": "^2.6.1"
   },
   "dependencies": {
-    "webview-tile-header": "https://github.com/moduware/webview-tile-header"
+    "webview-tile-header": "git+https://github.com/moduware/webview-tile-header.git"
   }
 }
