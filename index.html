@@ -19,7 +19,7 @@
     <script type="text/javascript" src="node_modules/webview-tile-header/WebViewTileHeader.js"></script>
     <script type="module">
       import {html, render} from './node_modules/lit-html/lit-html.js';
-      const lang = 'zh';
+      const lang = 'en';
 
       const enTemplate = () => html`
         <div id="wrapper" class="wrapper">
@@ -95,9 +95,9 @@
         `;
       
       if(lang === 'en') {
-        render(zhTemplate(), document.body);
-      } else {
         render(enTemplate(), document.body);
+      } else {
+        render(zhTemplate(), document.body);
       }
     </script>
    
