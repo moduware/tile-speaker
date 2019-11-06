@@ -42,7 +42,8 @@ button {
 #templates {
 	@extend .hidden;
 }
-#wrapper {
+#wrapper,
+#wrapper-zh {
 	@extend .no-overflow;
 	@include position(absolute, 0 0 null null);
 	width: 100%;

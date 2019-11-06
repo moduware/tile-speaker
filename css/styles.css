@@ -33,7 +33,8 @@ button {
 .invisible {
   visibility: hidden !important; }
 
-.no-overflow, #wrapper, .app-screen {
+.no-overflow, #wrapper,
+#wrapper-zh, .app-screen {
   overflow: hidden; }
 
 .unselectable {
@@ -42,7 +43,8 @@ button {
   -ms-user-select: none;
   user-select: none; }
 
-#wrapper {
+#wrapper,
+#wrapper-zh {
   position: absolute;
   top: 0;
   right: 0;
@@ -182,6 +184,9 @@ button {
 
 .wrapper {
   background-color: #2E334B; }
+
+.wrapper.hidden, .wrapper#templates, .wrapper.app-screen:not(.active) {
+  display: none; }
 
 .page--bug-notice {
   display: flex;
