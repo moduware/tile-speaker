@@ -18,7 +18,9 @@ function setInstructions(value) {
 function renderInstructions() {
   if(!showInstructions) {
     document.getElementById('explanationPowerOn').classList.add('hidden');
+    document.getElementById('explanationPowerOn-zh').classList.add('hidden');
     document.getElementById('explanationConnect').classList.add('hidden');
+    document.getElementById('explanationConnect-zh').classList.add('hidden');
     document.getElementById('headerInfoButton').style.opacity = 0.7;
   } else {
     document.getElementById('headerInfoButton').style.opacity = 1;
@@ -28,11 +30,23 @@ function renderInstructions() {
       document.getElementById('explanationPowerOn').classList.remove('hidden');
     }
 
+    if(document.getElementById('speaker-button-zh').classList.contains('active')) {
+      document.getElementById('explanationPowerOn-zh').classList.add('hidden');
+    } else {
+      document.getElementById('explanationPowerOn-zh').classList.remove('hidden');
+    }
+
     if(Moduware.Arguments.type == 'moduware.module.speaker') {
       if(document.getElementById('speaker-button').classList.contains('active')) {
         document.getElementById('explanationConnect').classList.remove('hidden');
       } else {
         document.getElementById('explanationConnect').classList.add('hidden');
+      }
+
+      if(document.getElementById('speaker-button-zh').classList.contains('active')) {
+        document.getElementById('explanationConnect-zh').classList.remove('hidden');
+      } else {
+        document.getElementById('explanationConnect-zh').classList.add('hidden');
       }
     }
   }
@@ -41,15 +55,22 @@ function renderInstructions() {
 function showBugNotice() {
   document.getElementById('pageMain').classList.add('hidden');
   document.getElementById('pageBugNotice').classList.remove('hidden');
+  
+  document.getElementById('pageMain-zh').classList.add('hidden');
+  document.getElementById('pageBugNotice-zh').classList.remove('hidden');
 }
 
 function hideBugNotice() {
   document.getElementById('pageMain').classList.remove('hidden');
   document.getElementById('pageBugNotice').classList.add('hidden');
+  
+  document.getElementById('pageMain-zh').classList.remove('hidden');
+  document.getElementById('pageBugNotice-zh').classList.add('hidden');
 }
 
 function speakerButtonClickHandler(e) {
-  document.getElementById('speaker-button').classList.toggle('active')
+  document.getElementById('speaker-button').classList.toggle('active');
+  document.getElementById('speaker-button-zh').classList.toggle('active');
   renderInstructions();
 
   if (this.classList.contains('active')) {
@@ -86,25 +107,32 @@ document.addEventListener('NexpaqAPIReady', function () {
     if (event.dataSource == 'StatusRequestResponse') {
       if (event.variables.status == 'connected') {
         document.getElementById('speaker-button').classList.add('active');
+        document.getElementById('speaker-button-zh').classList.add('active');
       } else if(event.variables.status == 'disconnected') {
         document.getElementById('speaker-button').classList.remove('active');
+        document.getElementById('speaker-button-zh').classList.remove('active');
       }
       renderInstructions();
       if(Moduware.Arguments.type == 'moduware.module.speaker') {
 				if(event.variables.defaultState == 'connected') {
           document.getElementById('default-state-switch').checked = true;
+          document.getElementById('default-state-switch-zh').checked = true;
           document.getElementById('default-state-control-label').classList.add('is-checked');
+          document.getElementById('default-state-control-label-zh').classList.add('is-checked');
 				} else if(event.variables.defaultState == 'disconnected') {
           document.getElementById('default-state-switch').checked = false;
+          document.getElementById('default-state-switch-zh').checked = false;
           document.getElementById('default-state-control-label').classList.remove('is-checked');
+          document.getElementById('default-state-control-label-zh').classList.remove('is-checked');
 				}
 			}
     }
 
   });
 
-  if (typeof(Moduware.Arguments) != 'undefined' && Moduware.Arguments.type == 'nexpaq.module.speaker') {
+  if (typeof(Moduware.Arguments) != 'undefined' && AAL .type == 'nexpaq.module.speaker') {
     document.getElementById('default-state-control').style.display = 'none';
+    document.getElementById('default-state-control-zh').style.display = 'none';
   }
 
   renderInstructions();
@@ -116,6 +144,7 @@ document.addEventListener('NexpaqAPIReady', function () {
         if(isConnected) {
           speakerIsConnected = true;
           document.getElementById('buttonConnectSpeaker').textContent = 'Okay';
+          document.getElementById('buttonConnectSpeaker-zh').textContent = '好的';
         }
       });
     }
@@ -130,8 +159,17 @@ document.addEventListener('DOMContentLoaded', function (event) {
   Nexpaq.Header.addButton({image: 'img/icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
+  document.getElementById('speaker-button-zh').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);
+  document.getElementById('default-state-switch-zh').addEventListener('click', defaultStateSwitchClickHandler);
   document.getElementById('buttonConnectSpeaker').addEventListener('click', connectSpeakerButtonClickHandler);
+  document.getElementById('buttonConnectSpeaker-zh').addEventListener('click', connectSpeakerButtonClickHandler);
+
+  if (window.ModuwareAPIIsReady) {
+		ApiReadyActions();
+	} else {
+		document.addEventListener("WebViewApiReady", () => ApiReadyActions(), { once: true});
+	}
 
   if(showInstructions && document.body.classList.contains('platform-android')) {
     showBugNotice();
@@ -139,3 +177,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
   renderInstructions();
 });
+
+function ApiReadyActions() {
+  console.log("API IS READY", Moduware.Arguments.language);
+  let language = Moduware.Arguments.language;
+  if (language === "zh") {
+    document.getElementById("wrapper-zh").classList.remove("hidden");
+    document.getElementById("wrapper").classList.add("hidden");
+  } else {
+    document.getElementById("wrapper").classList.remove("hidden");
+    document.getElementById("wrapper-zh").classList.add("hidden");
+  }
+}
