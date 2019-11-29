@@ -156,14 +156,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
   Nexpaq.Header.create('Speaker');
   Nexpaq.Header.customize({ color: 'white', iconColor: 'white', backgroundColor: '#E1514C' });
   Nexpaq.Header.hideShadow();
-  Nexpaq.Header.addButton({image: 'img/icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
+  Nexpaq.Header.addButton({image: './icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
 
   document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('speaker-button-zh').addEventListener('touchstart', speakerButtonClickHandler);
   document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);
   document.getElementById('default-state-switch-zh').addEventListener('click', defaultStateSwitchClickHandler);
-  document.getElementById('buttonConnectSpeaker').addEventListener('click', connectSpeakerButtonClickHandler);
-  document.getElementById('buttonConnectSpeaker-zh').addEventListener('click', connectSpeakerButtonClickHandler);
+  // document.getElementById('buttonConnectSpeaker').addEventListener('click', connectSpeakerButtonClickHandler);
+  // document.getElementById('buttonConnectSpeaker-zh').addEventListener('click', connectSpeakerButtonClickHandler);
 
   if (window.ModuwareAPIIsReady) {
 		ApiReadyActions();
