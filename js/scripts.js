@@ -8,6 +8,7 @@
 let showInstructions = (localStorage.speaker_v1_setting_show_instructions || 'true') == 'true';
 let speakerIsConnected = false;
 const bluetoothMediaModuleName = 'Moduware Speaker';
+let language = 'en';
 
 function setInstructions(value) {
   showInstructions = value;
@@ -164,7 +165,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
   document.getElementById('default-state-switch-zh').addEventListener('click', defaultStateSwitchClickHandler);
   document.getElementById('buttonConnectSpeaker').addEventListener('click', connectSpeakerButtonClickHandler);
   document.getElementById('buttonConnectSpeaker-zh').addEventListener('click', connectSpeakerButtonClickHandler);
-
+  document.getElementById("wrapper").classList.remove("hidden");
+  showPageByLanguage(language);  
   if (window.ModuwareAPIIsReady) {
 		ApiReadyActions();
 	} else {
@@ -180,8 +182,13 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 function ApiReadyActions() {
   console.log("API IS READY", Moduware.Arguments.language);
-  let language = Moduware.Arguments.language;
-  if (language === "zh") {
+  lang = Moduware.Arguments.language;
+  showPageByLanguage(lang);
+}
+
+function showPageByLanguage(lang) {
+  console.log('showPageByLanguage');
+  if (lang === "zh") {
     document.getElementById("wrapper-zh").classList.remove("hidden");
     document.getElementById("wrapper").classList.add("hidden");
   } else {
