@@ -1,29 +1,60 @@
 import React from 'react';
 import './MainPage.css';
 
-function MainPage() {
+class MainPage extends React.Component {
+
+    
+    render() {
+        return <div id="wrapper" className="wrapper">
+                    <div className="page page--main" id="pageMain">
+                        <div id="speaker-control" className="speaker-control" >
+                        <button onClick={speakerButtonClickHandler} className="speaker-button" id="speaker-button"><i className="material-icons">power_settings_new</i></button>
+                        </div>
+                    </div>
+                </div>;
+    }
+}
+
+
+
+function speakerButtonClickHandler(e) {
+    
+    document.getElementById('speaker-button').classList.toggle('active');
+  
+    if (document.getElementById('speaker-button').classList.contains('active')) {
+        console.log('connect')
+    //   Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
+    } else {
+        console.log('disconnect')
+    //   Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+  }
+}
+
+function MainPageOld() {
+
+
     return (
         <div id="wrapper" className="wrapper">
             <div className="page page--main" id="pageMain">
                 <div id="speaker-control" className="speaker-control" >
                     <button className="speaker-button" id="speaker-button"><i className="material-icons">power_settings_new</i></button>
-                    <span className="explanation explanation--power-on hidden" id="explanationPowerOn">
+                    {/* <span className="explanation explanation--power-on hidden" id="explanationPowerOn">
                         To start using speaker module turn it on
                     </span>
                     <span className="explanation explanation--connect hidden" id="explanationConnect">
                         To connect speaker module go to <strong>settings -> bluetooth</strong>, then <strong>pair Moduware speaker</strong>
-                    </span>
+                    </span> */}
                 </div>
-                <div id="default-state-control" className="default-state-control">
+                {/* <div id="default-state-control" className="default-state-control">
                     <span>Turn on when plugged in</span>
                     <label id="default-state-control-label" className="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="default-state-switch">
                         <input type="checkbox" id="default-state-switch" className="mdl-switch__input" />
                         <span className="mdl-switch__label"></span>
                     </label>
-                </div>
+                </div> */}
             </div>
 
-            <div className="page page--main" id="pageMain-zh">
+            {/* <div className="page page--main" id="pageMain-zh">
                 <div id="speaker-control" className="speaker-control" >
                     <button className="speaker-button" id="speaker-button-zh"><i className="material-icons">power_settings_new</i></button>
                     <span className="explanation explanation--power-on hidden" id="explanationPowerOn-zh">
@@ -40,10 +71,12 @@ function MainPage() {
                         <span className="mdl-switch__label"></span>
                     </label>
                 </div>
-            </div>
+            </div> */}
         </div>
 
     )
 }
+
+
 
 export default MainPage;
