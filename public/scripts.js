@@ -27,7 +27,7 @@
 //     if(document.getElementById('speaker-button').classList.contains('active')) {
 //       document.getElementById('explanationPowerOn').classList.add('hidden');
 //     } else {
-//       document.getElementById('explanationPowerOn').classList.remove('hidden');
+//       document.getElementById('expla nationPowerOn').classList.remove('hidden');
 //     }
 
 //     // if(document.getElementById('speaker-button-zh').classList.contains('active')) {
