@@ -1,5 +1,6 @@
 import React from 'react';
 import './MainPage.css';
+// import { speakerButtonClickHandler2 } from "./scripts.mjs";
 
 
 class MainPage extends React.Component {
@@ -11,12 +12,15 @@ class MainPage extends React.Component {
         this.speakerButtonClickHandler = this.speakerButtonClickHandler.bind(this)
     }
 
+    
+
     speakerButtonClickHandler() {
 
         this.setState(changeState => {
             document.getElementById('speaker-button').classList.toggle('active');
         if (document.getElementById('speaker-button').classList.contains('active')) {
             console.log('connect')
+            // speakerButtonClickHandler2();
             //   Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
         } else {
             console.log('disconnect')

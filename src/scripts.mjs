@@ -68,17 +68,17 @@
 //   // document.getElementById('pageBugNotice-zh').classList.add('hidden');
 // }
 
-// function speakerButtonClickHandler(e) {
+export function speakerButtonClickHandler2(e) {
 //   document.getElementById('speaker-button').classList.toggle('active');
 //   // document.getElementById('speaker-button-zh').classList.toggle('active');
 //   // renderInstructions();
 
-//   if (this.classList.contains('active')) {
-//     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
-//   } else {
-//     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
-//   }
-// }
+  if (document.getElementById('speaker-button').classList.contains('active')) {
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
+  } else {
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+  }
+}
 
 // function defaultStateSwitchClickHandler(e) {
 //   if(this.checked) {
@@ -165,11 +165,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
   // document.getElementById('buttonConnectSpeaker').addEventListener('click', connectSpeakerButtonClickHandler);
   // document.getElementById('buttonConnectSpeaker-zh').addEventListener('click', connectSpeakerButtonClickHandler);
 
-  // if (window.ModuwareAPIIsReady) {
-	// 	ApiReadyActions();
-	// } else {
-	// 	document.addEventListener("WebViewApiReady", () => ApiReadyActions(), { once: true});
-	// }
+  if (window.ModuwareAPIIsReady) {
+		ApiReadyActions();
+	} else {
+		document.addEventListener("WebViewApiReady", () => ApiReadyActions(), { once: true});
+	}
 
   // if(showInstructions && document.body.classList.contains('platform-android')) {
   //   showBugNotice();
