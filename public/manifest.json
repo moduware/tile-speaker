@@ -1,6 +1,20 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "id": "nexpaq.tile.speaker",
+  "name": "Speaker Tile React Version",
+  "description": "Speaker module interface created using react",
+
+  "version": "1.0.6",
+  "changes": "Created using react",
+  "app_version": "1.1.5",
+  "modules": [
+    "nexpaq.module.speaker",
+    "moduware.module.speaker"
+  ],
+
+  "title": "Speaker",
+  "color": "#DF5250",
+  "text_color": "white",
+
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +32,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
