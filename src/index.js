@@ -10,3 +10,20 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+/*global Moduware */
+
+if (window.ModuwareAPIIsReady) {
+  console.log('moduware detected')
+  // ApiReadyActions();
+} else {
+  console.log('no moduware detected');
+  document.addEventListener('WebViewApiReady', () => ApiReadyActions(), { once: true });
+}
+
+function ApiReadyActions() {
+  console.log('API ready actions fired!');
+  if(Moduware) {
+    console.log(Moduware.Arguments.language);
+  }
+}
