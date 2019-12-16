@@ -34,9 +34,10 @@ class MainPage extends React.Component {
     constructor(){
         super()
         this.state = {
-
+            isChecked: true
         }
         this.speakerButtonClickHandler = this.speakerButtonClickHandler.bind(this)
+        this.handleChecked = this.handleChecked.bind(this);
     }
 
     speakerButtonClickHandler() {
@@ -60,6 +61,38 @@ class MainPage extends React.Component {
         
     }
 
+    handleChecked () {
+        this.setState({isChecked: !this.state.isChecked});
+        if (this.state.isChecked) {
+            console.log('checked')
+            if (typeof Moduware != 'undefined'){
+            console.log('API ready')
+            Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
+            }
+          } else {
+            console.log('unchecks')
+            if (typeof Moduware != 'undefined'){
+            console.log('API ready')
+            Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
+            }
+          }
+      }
+
+
+    // defaultStateSwitchClickHandlerChecked(e) {
+    //     console.log('checked')
+    //     if (typeof Moduware != 'undefined'){
+    //       Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
+    //     }
+    // } 
+        
+    // defaultStateSwitchClickHandlerOnChange(e) {
+    //     console.log('unchecks')
+    //     if (typeof Moduware != 'undefined'){
+    //       Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
+    //     }
+    // }
+
     render() {
         return (
             <IntlProvider locale={language} messages={messages[language]}>
@@ -79,6 +112,16 @@ class MainPage extends React.Component {
                             defaultMessage='To connect speaker module go to settings -> bluetooth, then pair Moduware speaker'
                         />
                         </span>
+                    </div>
+                    <div id="default-state-control" className="default-state-control">
+                        <span><FormattedMessage 
+                            id='default.state'
+                            defaultMessage='Turn on when plugged in'
+                        /></span>
+                        <label id="default-state-control-label" className="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="default-state-switch">
+                            <input type="checkbox" onChange={ this.handleChecked } id="default-state-switch" className="mdl-switch__input" />
+                            <span className="mdl-switch__label"></span>
+                        </label>
                     </div>
                 </div>
             </IntlProvider>
