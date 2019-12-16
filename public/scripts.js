@@ -68,10 +68,10 @@
 //   // document.getElementById('pageBugNotice-zh').classList.add('hidden');
 // }
 
-export function speakerButtonClickHandler2(e) {
-//   document.getElementById('speaker-button').classList.toggle('active');
-//   // document.getElementById('speaker-button-zh').classList.toggle('active');
-//   // renderInstructions();
+function speakerButtonClickHandler(e) {
+  document.getElementById('speaker-button').classList.toggle('active');
+  // document.getElementById('speaker-button-zh').classList.toggle('active');
+  // renderInstructions();
 
   if (document.getElementById('speaker-button').classList.contains('active')) {
     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
@@ -80,13 +80,13 @@ export function speakerButtonClickHandler2(e) {
   }
 }
 
-// function defaultStateSwitchClickHandler(e) {
-//   if(this.checked) {
-//     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
-//   } else {
-//     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
-//   }
-// }
+function defaultStateSwitchClickHandler(e) {
+  if(this.checked) {
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
+  } else {
+    Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
+  }
+}
 
 // function connectSpeakerButtonClickHandler(e) {
 //   hideBugNotice();
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   Nexpaq.Header.hideShadow();
   // Nexpaq.Header.addButton({image: './icon-info.svg', id: 'headerInfoButton'}, () => setInstructions(!showInstructions));
 
-  // document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
+  document.getElementById('speaker-button').addEventListener('touchstart', speakerButtonClickHandler);
   // document.getElementById('speaker-button-zh').addEventListener('touchstart', speakerButtonClickHandler);
   // document.getElementById('default-state-switch').addEventListener('click', defaultStateSwitchClickHandler);
   // document.getElementById('default-state-switch-zh').addEventListener('click', defaultStateSwitchClickHandler);

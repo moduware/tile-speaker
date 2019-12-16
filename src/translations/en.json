@@ -1,0 +1,6 @@
+{
+    "test": "DashbroadFromJason",
+    "setting":"To connect speaker module go to settings -> bluetooth, then pair Moduware speaker",
+    "explanation":"To start using speaker module turn it on",
+    "default.state":"Turn on when plugged in"
+}

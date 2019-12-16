@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import './MainPage.css';
 // import Notice from './notice';
-import MainPage from './MainPage.mjs'
+import MainPage from './MainPage.js'
 
 
 function App() {

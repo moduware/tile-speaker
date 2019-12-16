@@ -1,6 +1,33 @@
 import React from 'react';
 import './MainPage.css';
-// import { speakerButtonClickHandler2 } from "./scripts.mjs";
+
+import {IntlProvider} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
+import messages_zh from "./translations/zh.json";
+import messages_en from "./translations/en.json";
+
+/*global Moduware*/
+
+const messages = {
+    'zh': messages_zh,
+    'en': messages_en
+};
+
+
+if (window.ModuwareAPIIsReady) {
+    ApiReadyActions();
+} else {
+    document.addEventListener("WebViewApiReady", () => ApiReadyActions(), { once: true});
+}
+
+var language = 'en';
+
+function ApiReadyActions() {
+      console.log("API IS READY", Moduware.Arguments.language);
+      language = Moduware.Arguments.language;
+      console.log(language)
+}
+
 
 
 class MainPage extends React.Component {
@@ -12,19 +39,20 @@ class MainPage extends React.Component {
         this.speakerButtonClickHandler = this.speakerButtonClickHandler.bind(this)
     }
 
-    
-
     speakerButtonClickHandler() {
-
+        
         this.setState(changeState => {
             document.getElementById('speaker-button').classList.toggle('active');
         if (document.getElementById('speaker-button').classList.contains('active')) {
             console.log('connect')
-            // speakerButtonClickHandler2();
-            //   Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
+            if (typeof Moduware != 'undefined'){
+                Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
+            }
         } else {
             console.log('disconnect')
-            //   Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+            if (typeof Moduware != 'undefined'){
+                Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+            }
         }
         }
         )
@@ -33,15 +61,30 @@ class MainPage extends React.Component {
     }
 
     render() {
-        return <div id="wrapper" className="wrapper">
-            <div className="page page--main" id="pageMain">
-                <div id="speaker-control" className="speaker-control" >
-                    <button onClick={this.speakerButtonClickHandler} className="speaker-button" id="speaker-button"><i className="material-icons">power_settings_new</i></button>
+        return (
+            <IntlProvider locale={language} messages={messages[language]}>
+
+                <div id="wrapper" className="wrapper">
+                    <div className="page page--main" id="pageMain">
+                        <FormattedMessage 
+                            id='test'
+                            defaultMessage='Dashboard'
+                        />
+                        <div id="speaker-control" className="speaker-control" >
+                            <button onClick={this.speakerButtonClickHandler} className="speaker-button" id="speaker-button"><i className="material-icons">power_settings_new</i></button>
+                        </div>
+                        <span className="explanation explanation--connect" id="explanationConnect">
+                        <FormattedMessage 
+                            id='setting'
+                            defaultMessage='To connect speaker module go to settings -> bluetooth, then pair Moduware speaker'
+                        />
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </div>;
+            </IntlProvider>
+        )
     }
-}
+} 
 
 
 

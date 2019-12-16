@@ -1,0 +1,6 @@
+{
+    "test": "控制面板",
+    "setting":"要连接扬声器模块，请转至设置 -> 蓝牙，然后配对Moduware扬声器",
+    "explanation":"请开启扬声器模块以使用",
+    "default.state":"插入时开启"
+}
