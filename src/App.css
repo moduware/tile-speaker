@@ -24,6 +24,10 @@
   color: white;
 }
 
+moduware-header {
+  margin-top: 24px;
+}
+
 .App-link {
   color: #61dafb;
 }
