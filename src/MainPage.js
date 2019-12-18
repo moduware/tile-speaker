@@ -1,10 +1,13 @@
 import React from 'react';
 import './MainPage.css';
 
+
 import {IntlProvider} from 'react-intl';
 import {FormattedMessage} from 'react-intl';
 import messages_zh from "./translations/zh.json";
 import messages_en from "./translations/en.json";
+
+import '../node_modules/webview-tile-header/webview-tile-header';
 
 /*global Moduware*/
 
@@ -14,31 +17,25 @@ const messages = {
 };
 
 
-if (window.ModuwareAPIIsReady) {
-    ApiReadyActions();
-} else {
-    document.addEventListener("WebViewApiReady", () => ApiReadyActions(), { once: true});
-}
-
-var language = 'en';
-
-function ApiReadyActions() {
-      console.log("API IS READY", Moduware.Arguments.language);
-      language = Moduware.Arguments.language;
-      console.log(language)
-}
-
-
-
 class MainPage extends React.Component {
+
+    handleModuwareIsReady() {
+        console.log('moduware api is now ready to use', window.lang);
+        console.log('argument', Moduware.Arguments);
+        this.setState({ locale: Moduware.Arguments.language });
+    }
+
     constructor(){
         super()
         this.state = {
-            isChecked: true
+            isChecked: true,
+            locale: 'zh'
         }
         this.speakerButtonClickHandler = this.speakerButtonClickHandler.bind(this)
         this.handleChecked = this.handleChecked.bind(this);
+        this.handleModuwareIsReady = this.handleModuwareIsReady.bind(this);
     }
+
 
     speakerButtonClickHandler() {
         
@@ -57,7 +54,19 @@ class MainPage extends React.Component {
         }
         }
         )
+    }
 
+    componentDidMount() {
+        const backButton = document.getElementById('header');
+        backButton.addEventListener('back-button-click', handleBackButtonClick)
+
+        if (window.ModuwareAPIIsReady) {
+            console.log('we are ready');
+            this.handleModuwareIsReady();
+        } else {
+            console.log('we are not yet ready...')
+            document.addEventListener('WebViewApiReady', () => this.handleModuwareIsReady(), { once: true });
+        }
         
     }
 
@@ -79,24 +88,17 @@ class MainPage extends React.Component {
       }
 
 
-    // defaultStateSwitchClickHandlerChecked(e) {
-    //     console.log('checked')
-    //     if (typeof Moduware != 'undefined'){
-    //       Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
-    //     }
-    // } 
-        
-    // defaultStateSwitchClickHandlerOnChange(e) {
-    //     console.log('unchecks')
-    //     if (typeof Moduware != 'undefined'){
-    //       Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
-    //     }
-    // }
-
     render() {
+        let language = this.state.locale;
         return (
             <IntlProvider locale={language} messages={messages[language]}>
-
+                <div className="App">
+                    <moduware-header
+                        id="header"
+                        title="Speaker Tile"
+                        ref="header">
+                    </moduware-header>
+                </div>
                 <div id="wrapper" className="wrapper">
                     <div className="page page--main" id="pageMain">
                         <FormattedMessage 
@@ -124,7 +126,7 @@ class MainPage extends React.Component {
                         </label>
                     </div>
                 </div>
-            </IntlProvider>
+             </IntlProvider>
         )
     }
 } 
@@ -199,6 +201,12 @@ class MainPage extends React.Component {
 //     )
 // }
 
-
+/*global Nexpaq */
+function handleBackButtonClick() {
+    console.log('header back button clicked!')
+    if(typeof Nexpaq !== "undefined") {
+      Nexpaq.API.Exit();
+    }
+}
 
 export default MainPage;

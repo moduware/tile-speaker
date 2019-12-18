@@ -45,10 +45,8 @@
     -ms-user-select: none;
     user-select: none; }
   
-  #wrapper,
-  #wrapper-zh {
+  #wrapper {
     position: absolute;
-    top: 0;
     right: 0;
     width: 100%;
     height: 100%; }
@@ -215,5 +213,29 @@
     font-feature-settings: 'liga';
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
+
+
 }
-  
+
+ .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+moduware-header {
+  margin-top: 24px;
+  background-color: #e1514c;
+}
+
+
+

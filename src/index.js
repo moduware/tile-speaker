@@ -5,17 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-import '@formatjs/intl-pluralrules/polyfill-locales';
 
-if (!Intl.PluralRules) {
-    require('@formatjs/intl-pluralrules/polyfill');
-    require('@formatjs/intl-pluralrules/dist/locale-data/en'); // Add locale data for de
-  }
-
-if (!Intl.PluralRules) {
-    require('@formatjs/intl-pluralrules/polyfill');
-    require('@formatjs/intl-pluralrules/dist/locale-data/zh'); // Add locale data for de
-}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

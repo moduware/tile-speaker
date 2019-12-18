@@ -6,33 +6,32 @@ import './MainPage.css';
 import MainPage from './MainPage.js'
 
 
-function App() {
-  return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} classNam e="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn Reacts
-    //     </a>
-    //   </header>
-    // </div>
-    <div>
-    
-    {/* <Notice /> */}
-    <MainPage />
-    </div>
-    
-    
 
-  );
+import '@formatjs/intl-pluralrules/polyfill-locales';
+
+
+
+if (!Intl.PluralRules) {
+  require('@formatjs/intl-pluralrules/polyfill');
+  require('@formatjs/intl-pluralrules/dist/locale-data/en'); // Add locale data for en
 }
+
+if (!Intl.PluralRules) {
+  require('@formatjs/intl-pluralrules/polyfill');
+  require('@formatjs/intl-pluralrules/dist/locale-data/zh'); // Add locale data for zh
+}
+
+
+class App extends React.Component{
+
+  render(){
+    return (
+        <div>
+          <MainPage />
+        </div>
+    );
+  }
+}
+
 
 export default App;
