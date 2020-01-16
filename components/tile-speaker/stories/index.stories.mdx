@@ -1,0 +1,55 @@
+import { Story, Preview, Meta, Props, html } from '@open-wc/demoing-storybook';
+
+import '../tile-speaker.js';
+
+<Meta 
+  title="TileSpeaker"
+  parameters={{
+    component: "tile-speaker",
+    options: { selectedPanel: "storybookjs/knobs/panel" }
+  }}
+/>
+
+# TileSpeaker
+
+A component for...
+
+## Features:
+
+- a
+- b
+- ...
+
+## How to use
+
+### Installation
+
+```bash
+yarn add tile-speaker
+```
+
+```js
+import 'tile-speaker/tile-speaker.js';
+```
+
+<Preview withToolbar>
+  <Story name="Simple">
+    {html`
+      <tile-speaker></tile-speaker>
+    `}
+  </Story>
+</Preview>
+
+## API
+
+<Props of="tile-speaker" />
+
+## Variations
+
+###### Custom Title
+
+<Story name="Custom Title">
+  {html`
+    <tile-speaker .title=${'Hello World'}></tile-speaker>
+  `}
+</Story>

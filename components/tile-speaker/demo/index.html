@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo"></div>
+
+  <script type="module">
+    import { html, render } from 'lit-html';
+    import '../tile-speaker.js';
+
+    const title = 'Hello owc World!';
+    render(
+      html`
+        <tile-speaker .title=${title}>
+          some more light-dom
+        </tile-speaker>
+      `,
+      document.querySelector('#demo')
+    );
+  </script>
+</body>
+</html>
