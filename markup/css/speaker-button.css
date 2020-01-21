@@ -1,0 +1,32 @@
+.speaker-control {
+  display: block;
+}
+
+.speaker-button {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 128px; height: 128px;
+  border: 5px solid currentColor;
+  border-radius: 50%;
+}
+.speaker-button.active {
+  background-color:#E1514C ;
+  color: white;
+  border-color: #E1514C; 
+}
+.speaker-button:not(.active) {
+  color: white;
+}
+.speaker-button.active{
+  background-color:#E1514C;;
+}
+
+.speaker-button::after, .speaker-button.active::after {
+  color:white;;
+}
+
+.speaker-button .material-icons {
+  font-size: 64px;
+}
+

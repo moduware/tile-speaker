@@ -1,0 +1,14 @@
+.page {
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 15px;
+}
+
+body.platform-ios .page {
+    padding-top: 45px;
+}
+
+body.platform-android .page {
+    padding-top: 55px;
+}

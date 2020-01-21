@@ -1,0 +1,34 @@
+.page--bug-notice {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.page--bug-notice .notice {
+    margin: auto 0;
+}
+
+.page--bug-notice .button-connect {
+    align-self: flex-end;
+}
+
+.notice {
+    color: white;
+}
+
+.notice__title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 5px;
+    text-transform: uppercase;
+}
+
+.notice__text {
+    line-height: 21px;
+}
+
+.notice__picture {
+    display: block;
+    margin: 30px auto;
+}
+
