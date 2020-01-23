@@ -56,3 +56,117 @@ export const SharedStyles = css`
     line-height: 64px;
   }
 `;
+
+
+// global.css
+
+export const GlobalStyles = css`
+  * {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+  strong {
+    font-weight: bold;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+  }
+  img {
+    max-width: 100%;
+  }
+  html {
+    background-color: rgb(225, 81, 76);
+  }
+  body {
+    font-family: $main-font;
+    min-height: initial;
+  }
+  button {
+    color: inherit;
+    font-size: inherit;
+    font-family: $main-font;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .invisible {
+    visibility: hidden !important;
+  }
+  .no-overflow {
+    overflow: hidden;
+  }
+  .unselectable {
+    user-select: none;
+  }
+  .wrapper {
+    overflow: hidden;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2E334B;
+  }
+  .app-screen {
+    overflow: hidden;
+  }
+  .app-screen:not(.active) {
+    display: none !important;
+  }
+`
+
+// from page.css
+export const Page = css`
+  .page {
+      box-sizing: border-box;
+      height: 100%;
+      overflow-y: scroll;
+      padding: 15px;
+  }
+
+  body.platform-ios .page {
+      padding-top: 45px;
+  }
+
+  body.platform-android .page {
+      padding-top: 55px;
+  }
+`
+
+// from speaker-button.css
+export const SpeakerButton = css`
+  .speaker-control {
+    display: block;
+  }
+
+  .speaker-button {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 128px; height: 128px;
+    border: 5px solid currentColor;
+    border-radius: 50%;
+  }
+  .speaker-button.active {
+    background-color:#E1514C ;
+    color: white;
+    border-color: #E1514C; 
+  }
+  .speaker-button:not(.active) {
+    color: white;
+  }
+  .speaker-button.active{
+    background-color:#E1514C;;
+  }
+
+  .speaker-button::after, .speaker-button.active::after {
+    color:white;;
+  }
+
+  .speaker-button .material-icons {
+    font-size: 64px;
+  }
+`

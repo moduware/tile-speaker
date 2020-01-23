@@ -13,9 +13,13 @@ import { PageViewElement } from './page-view-element.js';
 import { navigate } from '../actions/app.js';
 import { store } from '../store.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
-import { SharedStyles } from './shared-styles.js';
+import { SharedStyles, GlobalStyles, Page, SpeakerButton } from './shared-styles.js';
 import app from '../reducers/app.js';
 import './icons.js';
+
+import '../../node_modules/material-design-lite/material.min.js';
+import '../../node_modules/@material/mwc-icon/mwc-icon.js';
+// import '../../node_modules/material-design-lite/material.min.css';
 
 class HomePage extends connect(store)(PageViewElement) {
 
@@ -28,6 +32,9 @@ class HomePage extends connect(store)(PageViewElement) {
 	static get styles() {
 		return [
 			SharedStyles,
+			GlobalStyles,
+			Page,
+			SpeakerButton,
 			css`
         h2 {
 					color: red;
@@ -38,12 +45,27 @@ class HomePage extends connect(store)(PageViewElement) {
 
 	render() {
 		return html`
-      <section>
-				<h2>Home</h2>
-				<button @click="${() => store.dispatch(navigate('/page-one'))}">page-one</button>
-				<button @click="${() => store.dispatch(navigate('/page-two'))}">page-two</button>
-      </section>
+			<div id="wrapper" class="wrapper">
+				<div class="page page--main" id="pageMain">
+					<div id="speaker-control" class="speaker-control" >
+						<!-- <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button> -->
+						<button class="speaker-button active" @click="${this.powerButtonClickHandler}" id="speaker-button"><mwc-icon class="material-icons">power_settings_new</mwc-icon></button>
+						<span class="explanation explanation--power-on hidden" id="explanationPowerOn">
+							To start use speaker module turn it on
+						</span>
+						<span class="explanation explanation--connect hidden" id="explanationConnect">
+							To connect speaker module go to <strong>settings -> bluetooth</strong>, then <strong>pair Moduware speaker</strong>
+						</span>
+					</div>
+					<!-- insert default power on switch markup here -->
+				</div>
+			</div>
     `;
+	}
+
+	powerButtonClickHandler() {
+		console.log('hello from speaker button...');
+
 	}
 
 	stateChanged(state) {
