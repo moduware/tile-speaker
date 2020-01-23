@@ -1,2 +1,4 @@
-# tile-template
-template for tile development
+# tile-speaker
+
+Tile for Moduware Speaker Module
+
