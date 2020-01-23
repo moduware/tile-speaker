@@ -195,7 +195,7 @@ class MyApp extends connect(store)(LitElement) {
       <!-- Webview Header -->
       <moduware-header	
         @back-button-click="${() => store.dispatch(headerBackButtonClicked())}"
-				title="Tile Template">
+				title="Tile Speaker">
 			</moduware-header>
       <!-- Main content -->
       <main role="main" class="main-content">
