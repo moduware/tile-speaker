@@ -21,14 +21,22 @@ import '../../node_modules/material-design-lite/material.min.js';
 import '../../node_modules/@material/mwc-icon/mwc-icon.js';
 // import '../../node_modules/material-design-lite/material.min.css';
 
-class HomePage extends connect(store)(PageViewElement) {
+import { powerOnOff } from '../actions/app.js';
 
+class HomePage extends connect(store)(PageViewElement) {
+	
 	static get properties() {
 		return {
-			_page: { type: String }
+			_page: { type: String },
+			_powerOn: { type: Boolean }
 		};
 	}
-
+	
+	constructor() {
+		super();
+		this._powerOn = true;
+	}
+	
 	static get styles() {
 		return [
 			SharedStyles,
@@ -49,7 +57,7 @@ class HomePage extends connect(store)(PageViewElement) {
 				<div class="page page--main" id="pageMain">
 					<div id="speaker-control" class="speaker-control" >
 						<!-- <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button> -->
-						<button class="speaker-button active" @click="${this.powerButtonClickHandler}" id="speaker-button"><mwc-icon class="material-icons">power_settings_new</mwc-icon></button>
+						<button class="speaker-button ${this._powerOn ? 'active' : ''}" @click="${this.powerButtonClickHandler}" id="speaker-button"><mwc-icon class="material-icons">power_settings_new</mwc-icon></button>
 						<span class="explanation explanation--power-on hidden" id="explanationPowerOn">
 							To start use speaker module turn it on
 						</span>
@@ -64,12 +72,12 @@ class HomePage extends connect(store)(PageViewElement) {
 	}
 
 	powerButtonClickHandler() {
-		console.log('hello from speaker button...');
-
+		store.dispatch(powerOnOff());
 	}
 
 	stateChanged(state) {
 		this._page = state.app.page;
+		this._powerOn = state.app.powerOn;
 	}
 
 }

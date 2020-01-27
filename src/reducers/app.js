@@ -9,13 +9,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import {
-  UPDATE_PAGE
+  UPDATE_PAGE,
+  POWER_ON_OFF
 } from '../actions/app.js';
 
 const INITIAL_STATE = {
   page: '',
-  offline: false,
-  drawerOpened: false,
+  powerOn: ''
 };
 
 const app = (state = INITIAL_STATE, action) => {
@@ -24,6 +24,11 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         page: action.page
+      };
+    case POWER_ON_OFF:
+      return {
+        ...state,
+        powerOn: action.powerOn
       };
     default:
       return state;
