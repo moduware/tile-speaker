@@ -14,6 +14,9 @@ import { navigate } from '../actions/app.js';
 import { store } from '../store.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { SharedStyles, GlobalStyles, Page, SpeakerButton } from './shared-styles.js';
+
+import { Switch } from '@material/mwc-switch';
+
 import app from '../reducers/app.js';
 import './icons.js';
 
@@ -43,7 +46,28 @@ class HomePage extends connect(store)(PageViewElement) {
 			css`
         h2 {
 					color: red;
-        }
+				}
+				
+				.default-state-control {
+					position: absolute;
+					bottom: 0; left: 0;
+					width: 100%;
+					height: 72px;
+					display: flex;
+					background-color: rgba(0,0,0, 0.28);
+					color: rgba(255, 255, 255, 0.87);
+					font-size: 16px;
+					justify-content: space-between;
+					align-items: center;
+					padding: 0 15px;
+					box-sizing: border-box;
+					font-weight: 200;
+				}
+
+				mwc-switch {
+					--mdc-theme-secondary: #E1514C;
+				}
+
       `
 		];
 	}
@@ -63,13 +87,23 @@ class HomePage extends connect(store)(PageViewElement) {
 						</span>
 					</div>
 					<!-- insert default power on switch markup here -->
+
 				</div>
+				<!-- default power on when plug in switch -->
+				<div id="default-state-control" class="default-state-control">
+					<span>Turn on when plugged in</span>
+					<mwc-switch @change="${this.defaultSwitchHandler}"></mwc-switch>
+        </div>
 			</div>
     `;
 	}
 
 	powerButtonClickHandler() {
 		store.dispatch(powerOnOff());
+	}
+
+	defaultSwitchHandler() {
+		console.log('toggle switch...');
 	}
 
 	stateChanged(state) {
