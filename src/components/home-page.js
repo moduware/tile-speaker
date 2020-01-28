@@ -23,6 +23,8 @@ import './icons.js';
 import { powerIcon } from './icons';
 import { powerOnOff } from '../actions/app.js';
 
+import { translate, get } from "lit-translate";
+
 class HomePage extends connect(store)(PageViewElement) {
 	
 	static get properties() {
@@ -91,7 +93,7 @@ class HomePage extends connect(store)(PageViewElement) {
 				</div>
 				<!-- default power on when plug in switch -->
 				<div id="default-state-control" class="default-state-control">
-					<span>Turn on when plugged in</span>
+					<span>${translate('home-page.toggleTurnOn')}</span>
 					<mwc-switch @change="${this.defaultSwitchHandler}"></mwc-switch>
         </div>
 			</div>

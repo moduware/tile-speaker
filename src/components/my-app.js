@@ -24,7 +24,8 @@ import { store } from '../store.js';
 import {
 	navigate,
   headerBackButtonClicked,
-  initializeModuwareApiAsync
+  initializeModuwareApiAsync,
+  loadLanguageTranslation
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
@@ -36,13 +37,17 @@ import './icons.js';
 
 import 'webview-tile-header/webview-tile-header'
 
+import { registerTranslateConfig, use, translate, get } from "lit-translate";
+import * as translation from '../translations/language.js';
+
 class MyApp extends connect(store)(LitElement) {
 	static get properties() {
 		return {
 			appTitle: { type: String },
 			_page: { type: String },
 			_drawerOpened: { type: Boolean },
-			_offline: { type: Boolean }
+      _offline: { type: Boolean },
+      _language: { type: String }
 		};
 	}
 
@@ -197,7 +202,7 @@ class MyApp extends connect(store)(LitElement) {
       <!-- Webview Header -->
       <moduware-header	
         @back-button-click="${() => store.dispatch(headerBackButtonClicked())}"
-				title="Tile Speaker">
+				title="${translate('header.title')}">
 			</moduware-header>
       <!-- Main content -->
       <main role="main" class="main-content">
@@ -213,10 +218,22 @@ class MyApp extends connect(store)(LitElement) {
 		super();
 		// To force all event listeners for gestures to be passive.
 		// See https://www.polymer-project.org/3.0/docs/devguide/settings#setting-passive-touch-gestures
-		setPassiveTouchGestures(true);
-	}
+    setPassiveTouchGestures(true);
+  }
+  
+  // Load the initial language and mark that the strings has been loaded.
+  async connectedCallback() {
+
+    /** this is to register the language translation loader from lit-translate */
+    registerTranslateConfig({
+      loader: (lang) => Promise.resolve(translation[lang])
+    });
+
+    super.connectedCallback();
+  }
 
 	firstUpdated() {
+    store.dispatch(loadLanguageTranslation());
 		store.dispatch(navigate("/home-page")); // navigate can take /view1 or view2 or /view3
 		//installMediaQueryWatcher(`(min-width: 460px)`, () => store.dispatch(updateDrawerState(false)));
 		if (Moduware) {
@@ -225,21 +242,27 @@ class MyApp extends connect(store)(LitElement) {
     store.dispatch(initializeModuwareApiAsync());
 	}
 
-	updated(changedProps) {
-		if (changedProps.has('_page')) {
+	updated(changedProperties) {
+    use(this._language);
+		if (changedProperties.has('_page')) {
 			const pageTitle = this.appTitle + ' - ' + this._page;
 			updateMetadata({
 				title: pageTitle,
 				description: pageTitle
 				// This object also takes an image property, that points to an img src.
-			});
+      });
+      
+      if (changedProperties.has('_language')) {
+        use(this._language);
+      }
 		}
 	}
 
 	stateChanged(state) {
 		this._page = state.app.page;
 		this._offline = state.app.offline;
-		this._drawerOpened = state.app.drawerOpened;
+    this._drawerOpened = state.app.drawerOpened;
+    this._language = state.app.language;
 	}
 }
 

@@ -10,12 +10,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import {
   UPDATE_PAGE,
-  POWER_ON_OFF
+  POWER_ON_OFF,
+  LOAD_LANGUAGE_TRANSLATION
 } from '../actions/app.js';
 
 const INITIAL_STATE = {
   page: '',
-  powerOn: ''
+  powerOn: '',
+  language: 'en'
 };
 
 const app = (state = INITIAL_STATE, action) => {
@@ -30,6 +32,11 @@ const app = (state = INITIAL_STATE, action) => {
         ...state,
         powerOn: action.powerOn
       };
+    case LOAD_LANGUAGE_TRANSLATION:
+      return {
+        ...state,
+        language: action.language
+      }
     default:
       return state;
   }
