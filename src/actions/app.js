@@ -90,17 +90,20 @@ export const headerBackButtonClicked = () => (dispatch, getState) => {
 };
 
 export const powerOnOff = () => async (dispatch, getState) => {
+	// disable button
 	if(getState().app.powerOn) {
 		console.log('turning off now'); 
 		if(typeof Moduware !== "undefined") {
-			await Moduware.v1.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+			await Moduware.v1.API.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Disconnect', []);
 		}
+		// enable button
 		dispatch({type: POWER_ON_OFF, powerOn: false });
 	} else {
 		console.log('powering ON now...');
 		if (typeof Moduware !== "undefined") {
-			await Moduware.v1.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
+			await Moduware.v1.API.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Connect', []);
 		}
+		// enable button
 		dispatch({type: POWER_ON_OFF, powerOn: true });
 	}
 	return {
