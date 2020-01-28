@@ -14,6 +14,7 @@ import { connect } from 'pwa-helpers/connect-mixin.js';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { installOfflineWatcher } from 'pwa-helpers/network.js';
 import { installRouter } from 'pwa-helpers/router.js';
+// import { navigate, headerBackButtonClicked, initializeModuwareApiAsync, loadLanguageTranslation } from '../actions/app.js';
 import { updateMetadata } from 'pwa-helpers/metadata.js';
 
 // This element is connected to the Redux store.
@@ -22,7 +23,8 @@ import { store } from '../store.js';
 // These are the actions needed by this element.
 import {
 	navigate,
-	headerBackButtonClicked
+  headerBackButtonClicked,
+  initializeModuwareApiAsync
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
@@ -219,7 +221,8 @@ class MyApp extends connect(store)(LitElement) {
 		//installMediaQueryWatcher(`(min-width: 460px)`, () => store.dispatch(updateDrawerState(false)));
 		if (Moduware) {
 			console.log('Moduware', Moduware);
-		}
+    }
+    store.dispatch(initializeModuwareApiAsync());
 	}
 
 	updated(changedProps) {

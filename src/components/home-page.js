@@ -17,10 +17,7 @@ import { SharedStyles, GlobalStyles, Page, SpeakerButton } from './shared-styles
 import app from '../reducers/app.js';
 import './icons.js';
 
-import '../../node_modules/material-design-lite/material.min.js';
-import '../../node_modules/@material/mwc-icon/mwc-icon.js';
-// import '../../node_modules/material-design-lite/material.min.css';
-
+import { powerIcon } from './icons';
 import { powerOnOff } from '../actions/app.js';
 
 class HomePage extends connect(store)(PageViewElement) {
@@ -57,7 +54,7 @@ class HomePage extends connect(store)(PageViewElement) {
 				<div class="page page--main" id="pageMain">
 					<div id="speaker-control" class="speaker-control" >
 						<!-- <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button> -->
-						<button class="speaker-button ${this._powerOn ? 'active' : ''}" @click="${this.powerButtonClickHandler}" id="speaker-button"><mwc-icon class="material-icons">power_settings_new</mwc-icon></button>
+						<button class="speaker-button ${this._powerOn ? 'active' : ''}" @click="${this.powerButtonClickHandler}" id="speaker-button">${powerIcon}</button>
 						<span class="explanation explanation--power-on hidden" id="explanationPowerOn">
 							To start use speaker module turn it on
 						</span>

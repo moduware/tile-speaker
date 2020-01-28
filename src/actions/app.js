@@ -10,6 +10,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 export const UPDATE_PAGE = 'UPDATE_PAGE';
 export const POWER_ON_OFF = 'POWER_ON_OFF';
+export const MODUWARE_API_READY = 'MODUWARE_API_READY';
+
+// This is a fix to iOS not auto connecting and not finding any devices
+export const initializeModuwareApiAsync = () => async dispatch => {
+	let promise = new Promise((resolve, reject) => {
+		if (typeof Moduware === 'undefined') {
+			document.addEventListener('WebViewApiReady', resolve);
+		} else {
+			resolve();
+		}
+	});
+
+	await promise;
+	dispatch(moduwareApiReady());
+}
+
+export const moduwareApiReady = () => async dispatch => {
+	console.log('Moduware API ready!');
+	dispatch({ type: MODUWARE_API_READY });
+	// dispatch(loadLanguageTranslation());
+
+	// Moduware.v1.Bluetooth.addEventListener('ConnectionLost', () => {
+	// 	dispatch(connectionLost());
+	// });
+}
 
 export const navigate = (path) => (dispatch) => {
 	const page = path === '/' ? 'home-page' : path.slice(1);
@@ -59,13 +84,11 @@ export const headerBackButtonClicked = () => (dispatch, getState) => {
 export const powerOnOff = () => async (dispatch, getState) => {
 	if(getState().app.powerOn) {
 		console.log('Power is On, turning off now'); 
-		let res = await Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
-		console.log(res);
+		await Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
 		dispatch({type: POWER_ON_OFF, powerOn: false });
 	} else {
 		console.log('Power is off, powering ON now...');
-		let res = await Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
-		console.log(res);
+		await Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
 		dispatch({type: POWER_ON_OFF, powerOn: true });
 	}
 	return {
