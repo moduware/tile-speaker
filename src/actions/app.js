@@ -93,13 +93,13 @@ export const powerOnOff = () => async (dispatch, getState) => {
 	if(getState().app.powerOn) {
 		console.log('turning off now'); 
 		if(typeof Moduware !== "undefined") {
-			await Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+			await Moduware.v1.API.Module.SendCommand(Moduware.Arguments.uuid, 'Disconnect', []);
 		}
 		dispatch({type: POWER_ON_OFF, powerOn: false });
 	} else {
 		console.log('powering ON now...');
 		if (typeof Moduware !== "undefined") {
-			await Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
+			await Moduware.v1.API.Module.SendCommand(Moduware.Arguments.uuid, 'Connect', []);
 		}
 		dispatch({type: POWER_ON_OFF, powerOn: true });
 	}
