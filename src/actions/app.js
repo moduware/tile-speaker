@@ -37,7 +37,6 @@ export const moduwareApiReady = () => async dispatch => {
 	});
 
 	Moduware.v1.Module.addEventListener('MessageReceived', (data) => {
-		console.log('data', data, Moduware.Arguments);
 		if (data.ModuleUuid !== Moduware.Arguments.uuid) return;
 		if (data.Message.dataSource == 'StateChangeResponse' && data.Message.variables.result == 'success') {
 			requestSpeakerStatusCheck();
@@ -45,7 +44,6 @@ export const moduwareApiReady = () => async dispatch => {
 
 		// upon opening tile, update speaker power button state based on status check
 		if (data.Message.dataSource === 'StatusRequestResponse') {
-			console.log('data.Message.variables.status', data.Message.variables);
 			if(data.Message.variables.status === 'connected') {
 				dispatch({ type: POWER_ON_OFF, powerOn: true });
 			} else {
@@ -63,11 +61,6 @@ export const moduwareApiReady = () => async dispatch => {
 	});
 
 	requestSpeakerStatusCheck();
-	
-
-	// Moduware.v1.Bluetooth.addEventListener('ConnectionLost', () => {
-	// 	dispatch(connectionLost());
-	// });
 }
 
 function requestSpeakerStatusCheck() {
@@ -83,8 +76,8 @@ export const navigate = (path) => (dispatch) => {
 };
 
 export const loadLanguageTranslation = () => async dispatch => {
-	// let language = Moduware.Arguments.language;
-	let language = 'en';
+	let language = Moduware.Arguments.language || 'en';
+	// let language = 'en';
 	dispatch({ type: LOAD_LANGUAGE_TRANSLATION, language });
 }
 

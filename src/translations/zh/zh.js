@@ -3,14 +3,14 @@
  */
 export const zh = {
 	"header": {
-		"title": "Tile Template (Chinese)",
+		"title": "扬声器",
 	},
 	"my-app": {
 		"title": "Tile Template (Chinese)",
 	},
 	"home-page": {
 		"title": "Home Page (Chinese)",
-		"toggleTurnOn": "Turn on when plugged in (Chinese)"
+		"toggleTurnOn": "插入时开启"
 	},
 	"page-one": {
 		"title": "Page One (Chinese)",

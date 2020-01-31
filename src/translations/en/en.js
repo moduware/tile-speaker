@@ -3,7 +3,7 @@
  */
 export const en = {
 	"header": {
-		"title": "Tile Template",
+		"title": "Speaker",
 	},
 	"my-app": {
 		"title": "Tile Template",
