@@ -150,19 +150,27 @@ export const SpeakerButton = css`
     border: 5px solid currentColor;
     border-radius: 50%;
   }
+
+  .speaker-button[active],
   .speaker-button.active {
     background-color:#E1514C ;
     color: white;
     border-color: #E1514C; 
   }
+
+  .speaker-button:not([active]),
   .speaker-button:not(.active) {
     color: white;
   }
+
+  .speaker-button[active],
   .speaker-button.active{
     background-color:#E1514C;;
   }
 
-  .speaker-button::after, .speaker-button.active::after {
+  .speaker-button[active]::after,
+  .speaker-button::after, 
+  .speaker-button.active::after {
     color:white;;
   }
 

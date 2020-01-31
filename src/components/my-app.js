@@ -235,10 +235,6 @@ class MyApp extends connect(store)(LitElement) {
 	firstUpdated() {
     store.dispatch(loadLanguageTranslation());
 		store.dispatch(navigate("/home-page")); // navigate can take /view1 or view2 or /view3
-		//installMediaQueryWatcher(`(min-width: 460px)`, () => store.dispatch(updateDrawerState(false)));
-		if (Moduware) {
-			console.log('Moduware', Moduware);
-    }
     store.dispatch(initializeModuwareApiAsync());
 	}
 

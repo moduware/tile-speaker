@@ -12,6 +12,7 @@ export const UPDATE_PAGE = 'UPDATE_PAGE';
 export const POWER_ON_OFF = 'POWER_ON_OFF';
 export const MODUWARE_API_READY = 'MODUWARE_API_READY';
 export const LOAD_LANGUAGE_TRANSLATION = 'LOAD_LANGUAGE_TRANSLATION';
+export const DEFAULT_POWER_ON_PLUGIN = 'DEFAULT_POWER_ON_PLUGIN';
 
 // This is a fix to iOS not auto connecting and not finding any devices
 export const initializeModuwareApiAsync = () => async dispatch => {
@@ -28,24 +29,62 @@ export const initializeModuwareApiAsync = () => async dispatch => {
 }
 
 export const moduwareApiReady = () => async dispatch => {
-	console.log('Moduware API ready!');
 	dispatch({ type: MODUWARE_API_READY });
 	dispatch(loadLanguageTranslation());
+
+	Moduware.API.addEventListener('HardwareBackButtonPressed', () => {
+		dispatch(hardwareBackButtonPressed());
+	});
+
+	Moduware.v1.Module.addEventListener('MessageReceived', (data) => {
+		console.log('data', data, Moduware.Arguments);
+		if (data.ModuleUuid !== Moduware.Arguments.uuid) return;
+		if (data.Message.dataSource == 'StateChangeResponse' && data.Message.variables.result == 'success') {
+			requestSpeakerStatusCheck();
+		}
+
+		// upon opening tile, update speaker power button state based on status check
+		if (data.Message.dataSource === 'StatusRequestResponse') {
+			console.log('data.Message.variables.status', data.Message.variables);
+			if(data.Message.variables.status === 'connected') {
+				dispatch({ type: POWER_ON_OFF, powerOn: true });
+			} else {
+				dispatch({ type: POWER_ON_OFF, powerOn: false });
+			}
+		}
+
+		// upon opening tile, reflect speaker default settings turn on when plug in switch 
+		if(Moduware.Arguments.type === 'moduware.module.speaker') {
+			if(data.Message.variables.defaultState === 'connected') {
+				// default switch set to on
+				dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: true })
+			}
+		}
+	});
+
+	requestSpeakerStatusCheck();
+	
 
 	// Moduware.v1.Bluetooth.addEventListener('ConnectionLost', () => {
 	// 	dispatch(connectionLost());
 	// });
 }
 
+function requestSpeakerStatusCheck() {
+	if(typeof Moduware !== 'undefined') {
+		Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'StatusCheck', []);
+	}
+};
+
 export const navigate = (path) => (dispatch) => {
 	const page = path === '/' ? 'home-page' : path.slice(1);
+	requestSpeakerStatusCheck();
 	dispatch(loadPage(page));
 };
 
 export const loadLanguageTranslation = () => async dispatch => {
 	// let language = Moduware.Arguments.language;
 	let language = 'en';
-	// console.log(Moduware.Arguments);
 	dispatch({ type: LOAD_LANGUAGE_TRANSLATION, language });
 }
 
@@ -79,7 +118,6 @@ const updatePage = (page) => {
 };
 
 export const headerBackButtonClicked = () => (dispatch, getState) => {
-	console.log('Webview header back button clicked!');
 	if (Moduware) {
 		if (getState().app.page === 'page-one' || getState().app.page === 'page-two' || getState().app.page === 'error-page') {
 			dispatch(navigate('/home-page'))
@@ -89,24 +127,40 @@ export const headerBackButtonClicked = () => (dispatch, getState) => {
 	}
 };
 
+export const hardwareBackButtonPressed = () => (dispatch) => {
+	Moduware.API.Exit();
+}
+
 export const powerOnOff = () => async (dispatch, getState) => {
-	// disable button
+	// disable button while powering on or off
 	if(getState().app.powerOn) {
-		console.log('turning off now'); 
 		if(typeof Moduware !== "undefined") {
-			await Moduware.v1.API.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Disconnect', []);
+			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Disconnect', []);
 		}
-		// enable button
+		// enable button after turning off
 		dispatch({type: POWER_ON_OFF, powerOn: false });
 	} else {
-		console.log('powering ON now...');
 		if (typeof Moduware !== "undefined") {
-			await Moduware.v1.API.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Connect', []);
+			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Connect', []);
 		}
-		// enable button
+		// enable button after powering on
 		dispatch({type: POWER_ON_OFF, powerOn: true });
 	}
 	return {
 		type: POWER_ON_OFF
+	}
+}
+
+export const setPowerOnWhenPluginDefaultState = () => async (dispatch, getState) => {
+	if(getState().app.turnOnWhenPlugIn) {
+		if(typeof Moduware !== "undefined") {
+			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
+		}
+		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: false});
+	} else {
+		if(typeof Moduware !== "undefined") {
+			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
+		}
+		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: true});
 	}
 }

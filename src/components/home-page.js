@@ -21,7 +21,10 @@ import app from '../reducers/app.js';
 import './icons.js';
 
 import { powerIcon } from './icons';
-import { powerOnOff } from '../actions/app.js';
+import { 
+	powerOnOff,
+	setPowerOnWhenPluginDefaultState
+} from '../actions/app.js';
 
 import { translate, get } from "lit-translate";
 
@@ -30,13 +33,14 @@ class HomePage extends connect(store)(PageViewElement) {
 	static get properties() {
 		return {
 			_page: { type: String },
-			_powerOn: { type: Boolean }
+			_powerOn: { type: Boolean },
+			_turnOnWhenPlugIn: { type: Boolean }
 		};
 	}
 	
 	constructor() {
 		super();
-		this._powerOn = true;
+		this._powerOn = false;
 	}
 	
 	static get styles() {
@@ -45,6 +49,7 @@ class HomePage extends connect(store)(PageViewElement) {
 			GlobalStyles,
 			Page,
 			SpeakerButton,
+
 			css`
         h2 {
 					color: red;
@@ -80,7 +85,7 @@ class HomePage extends connect(store)(PageViewElement) {
 				<div class="page page--main" id="pageMain">
 					<div id="speaker-control" class="speaker-control" >
 						<!-- <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button> -->
-						<button class="speaker-button ${this._powerOn ? 'active' : ''}" @click="${this.powerButtonClickHandler}" id="speaker-button">${powerIcon}</button>
+						<button class="speaker-button" @click="${this.powerButtonClickHandler}" id="speaker-button" ?active="${this._powerOn}" ?disabled="${false}">${powerIcon}</button>
 						<span class="explanation explanation--power-on hidden" id="explanationPowerOn">
 							To start use speaker module turn it on
 						</span>
@@ -94,7 +99,7 @@ class HomePage extends connect(store)(PageViewElement) {
 				<!-- default power on when plug in switch -->
 				<div id="default-state-control" class="default-state-control">
 					<span>${translate('home-page.toggleTurnOn')}</span>
-					<mwc-switch @change="${this.defaultSwitchHandler}"></mwc-switch>
+					<mwc-switch @change="${this.defaultSwitchHandler}" ?checked="${this._turnOnWhenPlugIn}"></mwc-switch>
         </div>
 			</div>
     `;
@@ -105,12 +110,13 @@ class HomePage extends connect(store)(PageViewElement) {
 	}
 
 	defaultSwitchHandler() {
-		console.log('toggle switch...');
+		store.dispatch(setPowerOnWhenPluginDefaultState());
 	}
 
 	stateChanged(state) {
 		this._page = state.app.page;
 		this._powerOn = state.app.powerOn;
+		this._turnOnWhenPlugIn = state.app.turnOnWhenPlugIn;
 	}
 
 }

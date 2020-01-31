@@ -11,13 +11,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import {
   UPDATE_PAGE,
   POWER_ON_OFF,
-  LOAD_LANGUAGE_TRANSLATION
+  LOAD_LANGUAGE_TRANSLATION,
+  DEFAULT_POWER_ON_PLUGIN
 } from '../actions/app.js';
 
 const INITIAL_STATE = {
   page: '',
-  powerOn: '',
-  language: 'en'
+  powerOn: false,
+  language: 'en',
+  turnOnWhenPlugIn: false
 };
 
 const app = (state = INITIAL_STATE, action) => {
@@ -36,7 +38,13 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         language: action.language
-      }
+      };
+    case DEFAULT_POWER_ON_PLUGIN:
+      console.log('reducer turn on when plugin');
+      return {
+        ...state,
+        turnOnWhenPlugIn: action.turnOnWhenPlugIn
+      };
     default:
       return state;
   }
