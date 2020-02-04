@@ -44,7 +44,7 @@ export const moduwareApiReady = () => async dispatch => {
 
 		// upon opening tile, update speaker power button state based on status check
 		if (data.Message.dataSource === 'StatusRequestResponse') {
-			if(data.Message.variables.status === 'connected') {
+			if (data.Message.variables.status === 'connected') {
 				dispatch({ type: POWER_ON_OFF, powerOn: true });
 			} else {
 				dispatch({ type: POWER_ON_OFF, powerOn: false });
@@ -52,8 +52,8 @@ export const moduwareApiReady = () => async dispatch => {
 		}
 
 		// upon opening tile, reflect speaker default settings turn on when plug in switch 
-		if(Moduware.Arguments.type === 'moduware.module.speaker') {
-			if(data.Message.variables.defaultState === 'connected') {
+		if (Moduware.Arguments.type === 'moduware.module.speaker') {
+			if (data.Message.variables.defaultState === 'connected') {
 				// default switch set to on
 				dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: true })
 			}
@@ -64,7 +64,7 @@ export const moduwareApiReady = () => async dispatch => {
 }
 
 function requestSpeakerStatusCheck() {
-	if(typeof Moduware !== 'undefined') {
+	if (typeof Moduware !== 'undefined') {
 		Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'StatusCheck', []);
 	}
 };
@@ -126,18 +126,18 @@ export const hardwareBackButtonPressed = () => (dispatch) => {
 
 export const powerOnOff = () => async (dispatch, getState) => {
 	// disable button while powering on or off
-	if(getState().app.powerOn) {
-		if(typeof Moduware !== "undefined") {
+	if (getState().app.powerOn) {
+		if (typeof Moduware !== "undefined") {
 			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Disconnect', []);
 		}
 		// enable button after turning off
-		dispatch({type: POWER_ON_OFF, powerOn: false });
+		dispatch({ type: POWER_ON_OFF, powerOn: false });
 	} else {
 		if (typeof Moduware !== "undefined") {
 			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'Connect', []);
 		}
 		// enable button after powering on
-		dispatch({type: POWER_ON_OFF, powerOn: true });
+		dispatch({ type: POWER_ON_OFF, powerOn: true });
 	}
 	return {
 		type: POWER_ON_OFF
@@ -145,15 +145,15 @@ export const powerOnOff = () => async (dispatch, getState) => {
 }
 
 export const setPowerOnWhenPluginDefaultState = () => async (dispatch, getState) => {
-	if(getState().app.turnOnWhenPlugIn) {
-		if(typeof Moduware !== "undefined") {
+	if (getState().app.turnOnWhenPlugIn) {
+		if (typeof Moduware !== "undefined") {
 			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOff', []);
 		}
-		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: false});
+		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: false });
 	} else {
-		if(typeof Moduware !== "undefined") {
+		if (typeof Moduware !== "undefined") {
 			await Moduware.v1.Module.ExecuteCommand(Moduware.Arguments.uuid, 'SetDefaultStateAsOn', []);
 		}
-		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: true});
+		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: true });
 	}
 }
