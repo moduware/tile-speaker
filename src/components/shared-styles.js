@@ -125,15 +125,22 @@ export const Page = css`
       height: 100%;
       overflow-y: scroll;
       padding: 15px;
+      padding-top: var(--app-pages-padding-top);
   }
 
+  .page[platform='ios'],
   body.platform-ios .page {
       padding-top: 45px;
   }
 
+  .page[platform='android'],
   body.platform-android .page {
       padding-top: 55px;
   }
+
+  /* :host([platform="android"]) .page {
+    padding: 20px;
+  } */
 `
 
 // from speaker-button.css

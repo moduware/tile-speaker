@@ -13,6 +13,8 @@ export const POWER_ON_OFF = 'POWER_ON_OFF';
 export const MODUWARE_API_READY = 'MODUWARE_API_READY';
 export const LOAD_LANGUAGE_TRANSLATION = 'LOAD_LANGUAGE_TRANSLATION';
 export const DEFAULT_POWER_ON_PLUGIN = 'DEFAULT_POWER_ON_PLUGIN';
+export const GET_PLATFORM = 'GET_PLATFORM';
+export const GET_BACK_BUTTON_ICON = 'GET_BACK_BUTTON_ICON';
 
 // This is a fix to iOS not auto connecting and not finding any devices
 export const initializeModuwareApiAsync = () => async dispatch => {
@@ -156,4 +158,38 @@ export const setPowerOnWhenPluginDefaultState = () => async (dispatch, getState)
 		}
 		dispatch({ type: DEFAULT_POWER_ON_PLUGIN, turnOnWhenPlugIn: true });
 	}
+}
+
+/**
+ * function that gets the platform/OS of the device using userAgent
+ */
+export const getPlatform = () => (dispatch) => {
+	let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+	let platform = 'unknown';
+	
+	// Windows Phone must come first because its UA also contains "Android"
+	if (/windows phone/i.test(userAgent)) {
+		platform = 'windows-phone';
+	}
+
+	if (/android/i.test(userAgent)) {
+		platform = 'android';
+	}
+
+	// iOS detection from: http://stackoverflow.com/a/9039885/177710
+	if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+		platform = 'ios';
+	}
+	dispatch({ type: GET_PLATFORM, platform });
+};
+
+/**
+   * Gets either ios or android back button icons depending on platform
+   */
+export const getBackButtonIcon = () => (dispatch, getState) => {
+	let backButtonIcon = './src/components/images/android/back-button.svg';
+	if (getState().app.platform == 'ios') {
+		backButtonIcon =  './src/components/images/ios/back-button.svg';
+	}
+	dispatch({ type: GET_BACK_BUTTON_ICON, backButtonIcon });
 }

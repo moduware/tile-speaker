@@ -1,6 +1,6 @@
 {
 	"entrypoint": "index.html",
-	"basePath": "./",
+	"basePath": "/",
 	"shell": "src/components/my-app.js",
 	"sources": [
 		"images/**/*"
@@ -9,7 +9,8 @@
 		"manifest.json",
 		"icon.svg",
 		"node_modules/@webcomponents/webcomponentsjs/**",
-		"node_modules/@material/mwc-icon/**"
+		"node_modules/@material/mwc-icon/**",
+		"src/components/images/**"
 	],
 	"builds": [
 		{

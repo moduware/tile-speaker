@@ -57,7 +57,7 @@ class HomePage extends connect(store)(PageViewElement) {
 				
 				.default-state-control {
 					position: absolute;
-					bottom: 0; left: 0;
+					bottom: 24px; left: 0;
 					width: 100%;
 					height: 72px;
 					display: flex;

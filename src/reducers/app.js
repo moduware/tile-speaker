@@ -12,14 +12,18 @@ import {
   UPDATE_PAGE,
   POWER_ON_OFF,
   LOAD_LANGUAGE_TRANSLATION,
-  DEFAULT_POWER_ON_PLUGIN
+  DEFAULT_POWER_ON_PLUGIN,
+  GET_PLATFORM,
+  GET_BACK_BUTTON_ICON
 } from '../actions/app.js';
 
 const INITIAL_STATE = {
   page: '',
   powerOn: false,
   language: 'en',
-  turnOnWhenPlugIn: false
+  turnOnWhenPlugIn: false,
+  platform: '',
+  webviewHeaderIcon: ''
 };
 
 const app = (state = INITIAL_STATE, action) => {
@@ -40,10 +44,19 @@ const app = (state = INITIAL_STATE, action) => {
         language: action.language
       };
     case DEFAULT_POWER_ON_PLUGIN:
-      console.log('reducer turn on when plugin');
       return {
         ...state,
         turnOnWhenPlugIn: action.turnOnWhenPlugIn
+      };
+    case GET_PLATFORM:
+      return {
+        ...state,
+        platform: action.platform
+      };
+    case GET_BACK_BUTTON_ICON:
+      return {
+        ...state,
+        webviewHeaderIcon: action.backButtonIcon
       };
     default:
       return state;

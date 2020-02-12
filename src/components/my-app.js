@@ -25,7 +25,9 @@ import {
 	navigate,
   headerBackButtonClicked,
   initializeModuwareApiAsync,
-  loadLanguageTranslation
+  loadLanguageTranslation,
+  getPlatform,
+  getBackButtonIcon
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
@@ -39,6 +41,7 @@ import 'webview-tile-header/webview-tile-header'
 
 import { registerTranslateConfig, use, translate, get } from "lit-translate";
 import * as translation from '../translations/language.js';
+import { SharedStyles, GlobalStyles, Page, SpeakerButton } from './shared-styles.js';
 
 class MyApp extends connect(store)(LitElement) {
 	static get properties() {
@@ -47,7 +50,12 @@ class MyApp extends connect(store)(LitElement) {
 			_page: { type: String },
 			_drawerOpened: { type: Boolean },
       _offline: { type: Boolean },
-      _language: { type: String }
+      _language: { type: String },
+      platform: { 
+        type: String,
+        reflect: true
+      },
+      _webviewHeaderIcon: {type: String }
 		};
 	}
 
@@ -56,8 +64,6 @@ class MyApp extends connect(store)(LitElement) {
 			css`
         :host {
           display: block;
-
-          --app-drawer-width: 256px;
 
           --app-primary-color: #E91E63;
           --app-secondary-color: #293237;
@@ -73,6 +79,17 @@ class MyApp extends connect(store)(LitElement) {
           --app-drawer-background-color: var(--app-secondary-color);
           --app-drawer-text-color: var(--app-light-text-color);
           --app-drawer-selected-color: #78909C;
+
+          /* padding css variables for android and ios */
+          --app-pages-padding-top-android: 45px;
+          --app-pages-padding-top-ios: 55px;
+        }
+
+        :host([platform="android"]) {
+          --app-pages-padding-top: var(--app-pages-padding-top-android);
+        }
+        :host([platform="ios"]) {
+          --app-pages-padding-top: var(--app-pages-padding-top-ios);
         }
 
         app-header {
@@ -172,6 +189,23 @@ class MyApp extends connect(store)(LitElement) {
           text-align: center;
         }
 
+        moduware-header {
+          --text-color: white;
+          --gray-color: white;
+
+          margin-top: 20px;
+          background-color: #DF5250;
+        }
+
+        .back-button-icon-ios,
+        moduware-header button svg path {
+          fill: white;
+        }
+
+        moduware-header h1.title {
+          color: white;
+        }
+
         /* Wide layout: when the viewport width is bigger than 460px, layout
         changes to a wide layout */
         @media (min-width: 460px) {
@@ -202,15 +236,17 @@ class MyApp extends connect(store)(LitElement) {
       <!-- Webview Header -->
       <moduware-header	
         @back-button-click="${() => store.dispatch(headerBackButtonClicked())}"
-				title="${translate('header.title')}">
+				title="${translate('header.title')}"
+        backButtonIcon="${this._webviewHeaderIcon}">
 			</moduware-header>
       <!-- Main content -->
-      <main role="main" class="main-content">
-        <home-page class="page" ?active="${this._page === 'home-page'}"></home-page>
-        <page-one class="page" ?active="${this._page === 'page-one'}"></page-one>
-        <page-two class="page" ?active="${this._page === 'page-two'}"></page-two>
-        <error-page class="page" ?active="${this._page === 'error-page'}"></error-page>
-      </main>
+      <!-- <main role="main" class="main-content"> -->
+    <morph-pages class="main-content">
+      <home-page class="page" ?active="${this._page === 'home-page'}"></home-page>
+      <page-one class="page" ?active="${this._page === 'page-one'}"></page-one>
+      <page-two class="page" ?active="${this._page === 'page-two'}"></page-two>
+    </morph-pages>
+      <!-- </main> -->
     `;
 	}
 
@@ -236,14 +272,16 @@ class MyApp extends connect(store)(LitElement) {
     store.dispatch(loadLanguageTranslation());
 		store.dispatch(navigate("/home-page")); // navigate can take /view1 or view2 or /view3
     store.dispatch(initializeModuwareApiAsync());
+    store.dispatch(getPlatform());
+    store.dispatch(getBackButtonIcon());
 	}
-
+  
 	updated(changedProperties) {
     use(this._language);
 		if (changedProperties.has('_page')) {
-			const pageTitle = this.appTitle + ' - ' + this._page;
+      const pageTitle = this.appTitle + ' - ' + this._page;
 			updateMetadata({
-				title: pageTitle,
+        title: pageTitle,
 				description: pageTitle
 				// This object also takes an image property, that points to an img src.
       });
@@ -252,13 +290,16 @@ class MyApp extends connect(store)(LitElement) {
         use(this._language);
       }
 		}
-	}
+  }
+
 
 	stateChanged(state) {
 		this._page = state.app.page;
 		this._offline = state.app.offline;
     this._drawerOpened = state.app.drawerOpened;
     this._language = state.app.language;
+    this.platform = state.app.platform;
+    this._webviewHeaderIcon = state.app.webviewHeaderIcon;
 	}
 }
 
