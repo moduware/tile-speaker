@@ -75,6 +75,28 @@ class HomePage extends connect(store)(PageViewElement) {
 					--mdc-theme-secondary: #E1514C;
 				}
 
+				.explanation {
+					position: absolute;
+					top: calc(50% - 115px);
+					left: 50%;
+					-webkit-transform: translateX(-50%) translateY(-50%);
+					-moz-transform: translateX(-50%) translateY(-50%);
+					-ms-transform: translateX(-50%) translateY(-50%);
+					-o-transform: translateX(-50%) translateY(-50%);
+					transform: translateX(-50%) translateY(-50%);
+					width: 100%;
+					max-width: 250px;
+					display: block;
+					color: #FFFFFF;
+					font-family: Roboto, Helvetica, Arial, sans-serif;
+					font-size: 14px;
+					text-align: center;
+				}
+
+				.explanation[hidden] {
+					display: none;
+				}
+
       `
 		];
 	}
@@ -86,10 +108,10 @@ class HomePage extends connect(store)(PageViewElement) {
 					<div id="speaker-control" class="speaker-control" >
 						<!-- <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button> -->
 						<button class="speaker-button" @click="${this.powerButtonClickHandler}" id="speaker-button" ?active="${this._powerOn}" ?disabled="${false}">${powerIcon}</button>
-						<span class="explanation explanation--power-on hidden" id="explanationPowerOn">
+						<span class="explanation explanation--power-on" ?hidden="${this._powerOn}" id="explanationPowerOn">
 							To start use speaker module turn it on
 						</span>
-						<span class="explanation explanation--connect hidden" id="explanationConnect">
+						<span class="explanation explanation--connect" ?hidden="${!this._powerOn}" id="explanationConnect">
 							To connect speaker module go to <strong>settings -> bluetooth</strong>, then <strong>pair Moduware speaker</strong>
 						</span>
 					</div>
