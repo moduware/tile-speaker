@@ -97,6 +97,9 @@ const loadPage = (page) => (dispatch) => {
 		case 'page-two':
 			import('../components/page-two.js');
 			break;
+		case 'notice-page':
+			import('../components/notice-page.js');
+			break;
 		default:
 			page = 'error-page';
 			import('../components/error-page.js');
@@ -114,7 +117,7 @@ const updatePage = (page) => {
 
 export const headerBackButtonClicked = () => (dispatch, getState) => {
 	if (Moduware) {
-		if (getState().app.page === 'page-one' || getState().app.page === 'page-two' || getState().app.page === 'error-page') {
+		if (getState().app.page === 'page-one' || getState().app.page === 'notice-page' || getState().app.page === 'error-page') {
 			dispatch(navigate('/home-page'))
 		} else {
 			Moduware.API.Exit();

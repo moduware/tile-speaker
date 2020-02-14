@@ -184,4 +184,79 @@ export const SpeakerButton = css`
   .speaker-button .material-icons {
     font-size: 64px;
   }
+
+
 `
+// from bug-notice.css
+export const BugNotice = css`
+  
+  .page--bug-notice {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
+
+  .page--bug-notice .notice {
+      margin: auto 0;
+  }
+
+  .page--bug-notice .button-connect {
+      align-self: flex-end;
+  }
+
+  .notice {
+      color: white;
+  }
+
+  .notice__title {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 0 5px;
+      text-transform: uppercase;
+  }
+
+  .notice__text {
+      line-height: 21px;
+  }
+
+  .notice__picture {
+      display: block;
+      margin: 30px auto;
+  }
+`;
+
+export const ActionButton = css`
+  .action-button {
+    display: block;
+    width: 100%;
+    line-height: 56px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background-color: rgba(0,0,0,0.4);
+    text-decoration: none;
+    text-align: center;
+    flex-shrink: 0;
+
+  }
+  body.platform-ios .action-button {
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  .action-button.action-button--primary.action-button--primary {
+    color: #46320A;
+    background-color: white;
+  }
+
+  .action-button.action-button--red.action-button--red {
+    color: white;
+    background-color: #E1514C;
+  }
+
+  .action-button.action-button--link.action-button--link {
+    color: white;
+    background-color: transparent;
+    font-size: 16px;
+  }
+`;

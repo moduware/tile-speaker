@@ -244,6 +244,7 @@ class MyApp extends connect(store)(LitElement) {
     <morph-pages class="main-content">
       <home-page class="page" ?active="${this._page === 'home-page'}"></home-page>
       <page-one class="page" ?active="${this._page === 'page-one'}"></page-one>
+      <notice-page class="page" ?active="${this._page === 'notice-page'}"></notice-page>
       <page-two class="page" ?active="${this._page === 'page-two'}"></page-two>
     </morph-pages>
       <!-- </main> -->
@@ -270,7 +271,8 @@ class MyApp extends connect(store)(LitElement) {
 
 	firstUpdated() {
     store.dispatch(loadLanguageTranslation());
-		store.dispatch(navigate("/home-page")); // navigate can take /view1 or view2 or /view3
+    // store.dispatch(navigate("/home-page"));
+    store.dispatch(navigate("/notice-page")); 
     store.dispatch(initializeModuwareApiAsync());
     store.dispatch(getPlatform());
     store.dispatch(getBackButtonIcon());

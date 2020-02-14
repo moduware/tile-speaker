@@ -13,7 +13,7 @@ import { PageViewElement } from './page-view-element.js';
 import { navigate } from '../actions/app.js';
 import { store } from '../store.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
-import { SharedStyles } from './shared-styles.js';
+import { SharedStyles, GlobalStyles, Page } from './shared-styles.js';
 import app from '../reducers/app.js';
 import './icons.js';
 
@@ -27,6 +27,8 @@ class PageOne extends connect(store)(PageViewElement) {
 	static get styles() {
 		return [
 			SharedStyles,
+			GlobalStyles,
+			Page,
 			css`
         h2 {
 					color: red;
@@ -37,9 +39,11 @@ class PageOne extends connect(store)(PageViewElement) {
 
 	render() {
 		return html`
-      <section>
-				<h2>view 1</h2>
-      </section>
+			<div id="wrapper" class="wrapper">
+				<div class="page page--main" id="pageMain">
+					<h2>view 1</h2>
+				</div>
+			</div>
     `;
 	}
 
