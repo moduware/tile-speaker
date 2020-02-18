@@ -101,8 +101,8 @@ const loadPage = (page) => (dispatch) => {
 			import('../components/notice-page.js');
 			break;
 		default:
-			page = 'error-page';
-			import('../components/error-page.js');
+			// page = 'home-page';
+			import('../components/home-page.js');
 	}
 
 	dispatch(updatePage(page));
@@ -115,14 +115,8 @@ const updatePage = (page) => {
 	};
 };
 
-export const headerBackButtonClicked = () => (dispatch, getState) => {
-	if (Moduware) {
-		if (getState().app.page === 'page-one' || getState().app.page === 'notice-page' || getState().app.page === 'error-page') {
-			dispatch(navigate('/home-page'))
-		} else {
-			Moduware.API.Exit();
-		}
-	}
+export const headerBackButtonClicked = () => (dispatch) => {
+	if(typeof Moduware !== 'undefined') Moduware.API.Exit();
 };
 
 export const hardwareBackButtonPressed = () => (dispatch) => {
