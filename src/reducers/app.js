@@ -14,7 +14,6 @@ import {
   LOAD_LANGUAGE_TRANSLATION,
   DEFAULT_POWER_ON_PLUGIN,
   GET_PLATFORM,
-  GET_BACK_BUTTON_ICON
 } from '../actions/app.js';
 
 const INITIAL_STATE = {
@@ -23,7 +22,6 @@ const INITIAL_STATE = {
   language: 'en',
   turnOnWhenPlugIn: false,
   platform: '',
-  webviewHeaderIcon: ''
 };
 
 const app = (state = INITIAL_STATE, action) => {
@@ -52,11 +50,6 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         platform: action.platform
-      };
-    case GET_BACK_BUTTON_ICON:
-      return {
-        ...state,
-        webviewHeaderIcon: action.backButtonIcon
       };
     default:
       return state;

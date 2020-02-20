@@ -26,8 +26,7 @@ import {
   headerBackButtonClicked,
   initializeModuwareApiAsync,
   loadLanguageTranslation,
-  getPlatform,
-  getBackButtonIcon
+  getPlatform
 } from '../actions/app.js';
 
 // These are the elements needed by this element.
@@ -192,19 +191,10 @@ class MyApp extends connect(store)(LitElement) {
 
         moduware-header {
           --text-color: white;
-          --gray-color: white;
+          --back-button-color: white;
 
           margin-top: 20px;
           background-color: #DF5250;
-        }
-
-        .back-button-icon-ios,
-        moduware-header button svg path {
-          fill: white;
-        }
-
-        moduware-header h1.title {
-          color: white;
         }
 
         /* Wide layout: when the viewport width is bigger than 460px, layout
@@ -237,8 +227,7 @@ class MyApp extends connect(store)(LitElement) {
       <!-- Webview Header -->
       <moduware-header	
         @back-button-click="${() => store.dispatch(headerBackButtonClicked())}"
-				title="${translate('header.title')}"
-        backButtonIcon="${this._webviewHeaderIcon}">
+				title="${translate('header.title')}">
 			</moduware-header>
       <!-- Main content -->
       <!-- <main role="main" class="main-content"> -->
@@ -279,7 +268,6 @@ class MyApp extends connect(store)(LitElement) {
       store.dispatch(navigate("/notice-page")); 
     }
     store.dispatch(initializeModuwareApiAsync());
-    store.dispatch(getBackButtonIcon());
 	}
   
 	updated(changedProperties) {
@@ -305,7 +293,6 @@ class MyApp extends connect(store)(LitElement) {
     this._drawerOpened = state.app.drawerOpened;
     this._language = state.app.language;
     this.platform = state.app.platform;
-    this._webviewHeaderIcon = state.app.webviewHeaderIcon;
 	}
 }
 
