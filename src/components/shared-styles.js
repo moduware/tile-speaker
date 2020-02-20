@@ -76,11 +76,14 @@ export const GlobalStyles = css`
     max-width: 100%;
   }
   html {
-    background-color: rgb(225, 81, 76);
+    /* background-color: rgb(225, 81, 76); */
+    /* background-color: #E1514C; */
+    /* background-color: #D02E3D; */
   }
   body {
     font-family: $main-font;
     min-height: initial;
+    /* background-color: #D02E3D; */
   }
   button {
     color: inherit;

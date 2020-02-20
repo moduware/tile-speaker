@@ -109,10 +109,10 @@ class HomePage extends connect(store)(PageViewElement) {
 						<!-- <button class="speaker-button" id="speaker-button"><i class="material-icons">power_settings_new</i></button> -->
 						<button class="speaker-button" @click="${this.powerButtonClickHandler}" id="speaker-button" ?active="${this._powerOn}" ?disabled="${false}">${powerIcon}</button>
 						<span class="explanation explanation--power-on" ?hidden="${this._powerOn}" id="explanationPowerOn">
-							To start use speaker module turn it on
+							${translate('home-page.instruction-poweron')}
 						</span>
 						<span class="explanation explanation--connect" ?hidden="${!this._powerOn}" id="explanationConnect">
-							To connect speaker module go to <strong>settings -> bluetooth</strong>, then <strong>pair Moduware speaker</strong>
+							${translate('home-page.instruction-connect')}
 						</span>
 					</div>
 					<!-- insert default power on switch markup here -->

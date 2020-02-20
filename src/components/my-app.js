@@ -61,6 +61,7 @@ class MyApp extends connect(store)(LitElement) {
 
 	static get styles() {
 		return [
+      GlobalStyles,
 			css`
         :host {
           display: block;
@@ -241,12 +242,10 @@ class MyApp extends connect(store)(LitElement) {
 			</moduware-header>
       <!-- Main content -->
       <!-- <main role="main" class="main-content"> -->
-    <morph-pages class="main-content">
-      <home-page class="page" ?active="${this._page === 'home-page'}"></home-page>
-      <page-one class="page" ?active="${this._page === 'page-one'}"></page-one>
-      <notice-page class="page" ?active="${this._page === 'notice-page'}"></notice-page>
-      <page-two class="page" ?active="${this._page === 'page-two'}"></page-two>
-    </morph-pages>
+      <morph-pages class="main-content">
+        <home-page class="page" ?active="${this._page === 'home-page'}"></home-page>
+        <notice-page class="page" ?active="${this._page === 'notice-page'}"></notice-page>
+      </morph-pages>
       <!-- </main> -->
     `;
 	}
@@ -271,10 +270,15 @@ class MyApp extends connect(store)(LitElement) {
 
 	firstUpdated() {
     store.dispatch(loadLanguageTranslation());
-    // store.dispatch(navigate("/home-page"));
-    store.dispatch(navigate("/notice-page")); 
-    store.dispatch(initializeModuwareApiAsync());
     store.dispatch(getPlatform());
+    console.log('platform', this.platform);
+    // store.dispatch(navigate("/home-page"));
+    if(this.platform === 'ios') {
+      store.dispatch(navigate("/home-page"));
+    } else {
+      store.dispatch(navigate("/notice-page")); 
+    }
+    store.dispatch(initializeModuwareApiAsync());
     store.dispatch(getBackButtonIcon());
 	}
   
