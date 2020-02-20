@@ -5,19 +5,16 @@ export const zh = {
 	"header": {
 		"title": "扬声器",
 	},
-	"my-app": {
-		"title": "Tile Template (Chinese)",
-	},
+
 	"home-page": {
-		"title": "Home Page (Chinese)",
 		"toggleTurnOn": "插入时开启",
-		"instruction-poweron": "To start use speaker module turn it on (Chinese)",
-		"instruction-connect": "To connect speaker module go to <strong>settings -> bluetooth</strong>, then <strong>pair Moduware speaker</strong>"
+		"instruction-poweron": "请开启扬声器模块以使用",
+		"instruction-connect": "要连接扬声器模块，请转至设置 -> 蓝牙，然后配对Moduware扬声器"
 	},
-	"page-one": {
-		"title": "Page One (Chinese)",
-	},
-	"page-two": {
-		"title": "Page Two (Chinese)",
+
+	"notice-page": {
+		"redial-bug": "可能出现一个问题: 在您第一次连接扬声器模块时，您的电话将重拨最后一个呼出号码",
+		"switch-instruction": "为了确保此问题不再发生，请转至设置 -> 连接 -> 蓝牙，然后选择 Moduware Speaker 并且关闭“通话音频”",
+		"connect": "Connect"
 	}
 };

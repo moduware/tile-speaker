@@ -3,8 +3,8 @@ import { PageViewElement } from './page-view-element.js';
 import { navigate } from '../actions/app.js';
 import { store } from '../store.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
+import { translate } from 'lit-translate';
 import { SharedStyles, GlobalStyles, Page, BugNotice, ActionButton } from './shared-styles.js';
-
 class NoticePage extends connect(store)(PageViewElement) {
   static get properties() {
     return {
@@ -34,14 +34,13 @@ class NoticePage extends connect(store)(PageViewElement) {
           <div class="notice">
           <h1 class="notice__title">Important</h1>
           <p class="notice__text">
-            We have a bug. On your first connection of speaker module, your phone will redial your last caller.
+            ${translate('notice-page.redial-bug')}
           </p>
           <img class="notice__picture" src="src/components/images/android-bug-pic.png" alt="Android Bug Pic">
           <p class="notice__text">
-            To ensure this only happens once go to <strong>settings -> connections -> bluetooth</strong>, then select
-            Moduware Speaker and <strong>switch off "call audio"</strong>
+            ${translate('notice-page.switch-instruction')}
           </p>
-          <button class="button-connect action-button action-button--red" id="buttonConnectSpeaker" @click="${this.connectButtonClickHandler}">Connect</button>
+          <button class="button-connect action-button action-button--red" id="buttonConnectSpeaker" @click="${this.connectButtonClickHandler}">${translate('notice-page.connect')}</button>
           </div>
 				</div>
 			</div>

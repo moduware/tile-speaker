@@ -75,10 +75,11 @@ export const GlobalStyles = css`
   img {
     max-width: 100%;
   }
+
+  /* This does not apply unless place on the index.html */
   html {
     /* background-color: rgb(225, 81, 76); */
     /* background-color: #E1514C; */
-    /* background-color: #D02E3D; */
   }
   body {
     font-family: $main-font;
