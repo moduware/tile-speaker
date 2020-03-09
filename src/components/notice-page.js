@@ -5,6 +5,8 @@ import { store } from '../store.js';
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { translate } from 'lit-translate';
 import { SharedStyles, GlobalStyles, Page, BugNotice, ActionButton } from './shared-styles.js';
+import { MaterialStyles } from '../vendor/material.min.css.js';
+
 class NoticePage extends connect(store)(PageViewElement) {
   static get properties() {
     return {
@@ -14,6 +16,7 @@ class NoticePage extends connect(store)(PageViewElement) {
 
   static get styles() {
     return [
+      MaterialStyles,
       SharedStyles,
       GlobalStyles,
       Page,
@@ -32,16 +35,16 @@ class NoticePage extends connect(store)(PageViewElement) {
 			<div id="wrapper" class="wrapper">
 				<div class="page page--bug-notice" id="pageMain">
           <div class="notice">
-          <h1 class="notice__title">Important</h1>
-          <p class="notice__text">
-            ${translate('notice-page.redial-bug')}
-          </p>
-          <img class="notice__picture" src="src/components/images/android-bug-pic.png" alt="Android Bug Pic">
-          <p class="notice__text">
-            ${translate('notice-page.switch-instruction')}
-          </p>
-          <button class="button-connect action-button action-button--red" id="buttonConnectSpeaker" @click="${this.connectButtonClickHandler}">${translate('notice-page.connect')}</button>
+            <h1 class="notice__title">Important</h1>
+            <p class="notice__text">
+              ${translate('notice-page.redial-bug')}
+            </p>
+            <img class="notice__picture" src="src/components/images/android-bug-pic.png" alt="Android Bug Pic">
+            <p class="notice__text">
+              ${translate('notice-page.switch-instruction')}
+            </p>
           </div>
+          <button class="button-connect action-button action-button--red" id="buttonConnectSpeaker" @click="${this.connectButtonClickHandler}">${translate('notice-page.connect')}</button>
 				</div>
 			</div>
     `;

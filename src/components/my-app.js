@@ -50,7 +50,7 @@ class MyApp extends connect(store)(LitElement) {
 			_drawerOpened: { type: Boolean },
       _offline: { type: Boolean },
       _language: { type: String },
-      platform: { 
+      platform: {
         type: String,
         reflect: true
       },
@@ -193,7 +193,6 @@ class MyApp extends connect(store)(LitElement) {
           --text-color: white;
           --back-button-color: white;
 
-          margin-top: 20px;
           background-color: #DF5250;
         }
 
@@ -225,7 +224,7 @@ class MyApp extends connect(store)(LitElement) {
 	render() {
 		return html`
       <!-- Webview Header -->
-      <moduware-header	
+      <moduware-header
         @back-button-click="${() => store.dispatch(headerBackButtonClicked())}"
 				title="${translate('header.title')}">
 			</moduware-header>
@@ -245,7 +244,7 @@ class MyApp extends connect(store)(LitElement) {
 		// See https://www.polymer-project.org/3.0/docs/devguide/settings#setting-passive-touch-gestures
     setPassiveTouchGestures(true);
   }
-  
+
   // Load the initial language and mark that the strings has been loaded.
   async connectedCallback() {
 
@@ -265,11 +264,11 @@ class MyApp extends connect(store)(LitElement) {
     if(this.platform === 'ios') {
       store.dispatch(navigate("/home-page"));
     } else {
-      store.dispatch(navigate("/notice-page")); 
+      store.dispatch(navigate("/notice-page"));
     }
     store.dispatch(initializeModuwareApiAsync());
 	}
-  
+
 	updated(changedProperties) {
     use(this._language);
 		if (changedProperties.has('_page')) {
@@ -279,7 +278,7 @@ class MyApp extends connect(store)(LitElement) {
 				description: pageTitle
 				// This object also takes an image property, that points to an img src.
       });
-      
+
       if (changedProperties.has('_language')) {
         use(this._language);
       }
