@@ -10,7 +10,8 @@
 		"icon.svg",
 		"node_modules/@webcomponents/webcomponentsjs/**",
 		"node_modules/@material/mwc-icon/**",
-		"src/components/images/**"
+		"src/components/images/**",
+    "fonts/**"
 	],
 	"builds": [
 		{
