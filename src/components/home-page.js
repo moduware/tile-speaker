@@ -21,7 +21,7 @@ import app from '../reducers/app.js';
 import './icons.js';
 
 import { powerIcon } from './icons';
-import { 
+import {
 	powerOnOff,
 	setPowerOnWhenPluginDefaultState
 } from '../actions/app.js';
@@ -29,7 +29,7 @@ import {
 import { translate, get } from "lit-translate";
 
 class HomePage extends connect(store)(PageViewElement) {
-	
+
 	static get properties() {
 		return {
 			_page: { type: String },
@@ -37,12 +37,12 @@ class HomePage extends connect(store)(PageViewElement) {
 			_turnOnWhenPlugIn: { type: Boolean }
 		};
 	}
-	
+
 	constructor() {
 		super();
 		this._powerOn = false;
 	}
-	
+
 	static get styles() {
 		return [
 			SharedStyles,
@@ -54,10 +54,10 @@ class HomePage extends connect(store)(PageViewElement) {
         h2 {
 					color: red;
 				}
-				
+
 				.default-state-control {
 					position: absolute;
-					bottom: 24px; left: 0;
+					bottom: 0px; left: 0;
 					width: 100%;
 					height: 72px;
 					display: flex;

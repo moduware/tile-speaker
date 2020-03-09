@@ -193,6 +193,7 @@ class MyApp extends connect(store)(LitElement) {
           --text-color: white;
           --back-button-color: white;
 
+          border: none;
           background-color: #DF5250;
         }
 
