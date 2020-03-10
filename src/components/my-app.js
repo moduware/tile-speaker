@@ -194,6 +194,7 @@ class MyApp extends connect(store)(LitElement) {
           --back-button-color: white;
 
           border: none;
+          position: absolute;
           background-color: #DF5250;
         }
 
