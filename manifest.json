@@ -1,5 +1,5 @@
 {
-	"id": "nexpaq.tile.speaker.develop-pwa",
+	"id": "nexpaq.tile.speaker",
 	"name": "Speaker",
 	"description": "Speaker module interface",
 	"versions": {
