@@ -1,13 +1,13 @@
 {
 	"id": "nexpaq.tile.speaker.develop-pwa",
 	"name": "Speaker",
-	"description": "(develop-pwa) Speaker module interface",
+	"description": "Speaker module interface",
 	"versions": {
 		"stable": "1.2.6",
-		"alpha": "1.2.7"
+		"alpha": "2.0.0"
 	},
-	"version": "1.2.6",
-	"changes": "ColorPriority for better colors: brighter and more accurate",
+	"version": "2.0.0",
+	"changes": "Complete rewrite",
 	"minumumAppVersion": "1.1.8",
 	"modules": [
 		"nexpaq.module.speaker",

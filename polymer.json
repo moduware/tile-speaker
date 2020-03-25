@@ -15,7 +15,7 @@
 	],
 	"builds": [
 		{
-			"name": "nexpaq.tile.speaker.develop-pwa",
+			"name": "nexpaq.tile.speaker",
 			"js": {
 				"compile": "es5",
 				"minify": false,
